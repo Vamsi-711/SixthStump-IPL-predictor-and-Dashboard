@@ -1,6 +1,6 @@
 # SixthStump 🏏
 
-**IPL 2026 Win Predictor & Cricket Hub**
+**IPL 2026 Win Predictor & Dashboard**
 
 > Built by [Vamsi Markandeya](https://yerra-vamsi-markandeya.vercel.app/)
 
