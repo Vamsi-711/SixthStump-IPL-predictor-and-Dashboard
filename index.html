@@ -47,6 +47,33 @@ body.dark .modal-close{color:var(--ink)}
 body.dark .no-ipl-badge{background:var(--cream2)}
 body.dark select option{background:#1a1710;color:#f5f0e4}
 body.dark .await-box{background:var(--cream2)}
+body.dark .result-loader{background:var(--ink2)}
+body.dark .loader-txt{color:var(--cream);opacity:.5}
+body.dark .a-tag.pos{background:var(--ink2);color:var(--cream);border-color:var(--ink2)}
+body.dark .match-vs-cell{background:var(--ink2);color:var(--cream)}
+body.dark .istat-card-head{background:var(--ink2);color:var(--cream)}
+body.dark .pt-table th{background:var(--ink2);color:var(--cream)}
+body.dark .squad-filter-btn.active, body.dark .sq-btn.active{background:var(--ink2);color:var(--cream)}
+body.dark .hub-head-tag{background:var(--ink2);color:var(--cream)}
+body.dark .sec-head-label{background:var(--ink2);color:var(--cream)}
+body.dark .sec-head-line{background:var(--ink)}
+body.dark .yr-btn.active{background:var(--ink2);color:var(--cream)}
+body.dark .icat-btn.active{background:var(--red);color:#fff}
+body.dark .vs-col{background:var(--ink2)}
+body.dark .stat-box-val{color:var(--ink)}
+body.dark .conf-val{color:var(--ink)}
+body.dark .conf-fill-ring{stroke:var(--ink)}
+body.dark .conf-track{stroke:var(--cream2)}
+body.dark .masthead-rule{background:var(--ink2)}
+body.dark .tab-btn.active{background:var(--ink2);color:var(--cream)}
+body.dark .predict-btn{color:var(--cream)}
+
+body.dark .ticker{background:var(--cream2);border-top-color:var(--red)}
+body.dark .ticker-live{color:#fff}
+body.dark .ti{color:var(--ink);opacity:.6}
+body.dark .ti strong{color:var(--ink);opacity:.9}
+body.dark .modal-overlay{background:rgba(245,240,228,.15)}
+
 
 /* THEME TOGGLE */
 .theme-toggle{
@@ -411,7 +438,7 @@ select option{background:#fff}
 .chip-icon{font-size:14px;margin-bottom:4px;display:block}
 .chip-lbl{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;opacity:.5;display:block;margin-bottom:2px}
 .chip-val{font-size:13px;font-weight:700;display:block}
-.chip-pos{color:var(--ink)}
+.chip-pos{color:var(--ink2)}
 .chip-neg{color:var(--red)}
 .chip-neu{color:var(--gold)}
 
@@ -572,9 +599,9 @@ select option{background:#fff}
   border-right-color:var(--ink);border-bottom-color:var(--ink);
 }
 .player-chip.captain .p-name{color:var(--cream)}
-.player-chip.captain .p-role{color:rgba(245,240,228,.45)}
+.player-chip.captain .p-role{color:var(--cream);opacity:.45}
 .player-chip.captain .p-price{color:var(--gold)}
-.player-chip.captain:hover{background:#2a2820}
+.player-chip.captain:hover{background:var(--ink2)}
 .captain-badge{
   display:inline-block;
   font-family:'IBM Plex Mono',monospace;
@@ -711,8 +738,8 @@ select option{background:#fff}
 }
 .ticker-scroll{display:flex;gap:48px;white-space:nowrap;animation:ticker 30s linear infinite}
 @keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-.ti{font-family:'IBM Plex Mono',monospace;font-size:11px;color:rgba(245,240,228,.5)}
-.ti strong{color:rgba(245,240,228,.85);font-weight:600}
+.ti{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--cream);opacity:.5}
+.ti strong{color:var(--cream);opacity:.85;font-weight:600}
 .ti-dot{width:4px;height:4px;background:var(--red);display:inline-block;margin:0 12px;vertical-align:middle}
 
 /* CONFETTI */
