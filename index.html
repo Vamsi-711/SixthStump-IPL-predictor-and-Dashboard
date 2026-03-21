@@ -2,12 +2,6 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="google-site-verification" content="XXrhAWNxMr-fKTrGDuaIxYCPPk3j-cmmdmAJLVHmLYk" />
-<meta name="description" content="SixthStump — IPL 2026 Win Predictor. Predict match winners, explore team squads, schedules and season stats.">
-<meta name="keywords" content="IPL 2026, IPL win predictor, cricket predictor, IPL squads, SixthStump">
-<meta property="og:title" content="SixthStump — IPL 2026 Win Predictor">
-<meta property="og:description" content="Predict IPL 2026 match winners with AI. Full squads, schedule, stats and more.">
-<meta property="og:url" content="https://your-vercel-url.vercel.app/">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SixthStump — IPL 2026</title>
 <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -464,6 +458,37 @@ select option{background:#fff}
 }
 
 /* SQUADS */
+
+/* PLAYER MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;z-index:1000;background:rgba(15,14,10,.85);align-items:center;justify-content:center;padding:20px}
+.modal-overlay.open{display:flex}
+.modal-box{background:var(--cream);border:var(--border);box-shadow:8px 8px 0 var(--ink);max-width:520px;width:100%;max-height:88vh;overflow-y:auto;position:relative;animation:stampIn .25s cubic-bezier(.34,1.56,.64,1) both}
+.modal-header{background:var(--ink);color:var(--cream);padding:18px 20px;display:flex;align-items:center;gap:14px;border-bottom:var(--border)}
+.modal-logo{width:44px;height:44px;object-fit:contain;border:1.5px solid rgba(255,255,255,.2);padding:3px;background:rgba(255,255,255,.08)}
+.modal-player-name{font-size:20px;font-weight:900;letter-spacing:1px;text-transform:uppercase;line-height:1.1}
+.modal-player-team{font-family:'IBM Plex Mono',monospace;font-size:10px;opacity:.5;letter-spacing:2px;margin-top:3px}
+.modal-close{position:absolute;top:14px;right:16px;font-size:22px;font-weight:900;color:var(--cream);background:none;border:none;cursor:pointer;opacity:.6;transition:opacity .15s;line-height:1}
+.modal-close:hover{opacity:1}
+.modal-body{padding:20px}
+.modal-role-row{display:flex;align-items:center;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.modal-badge{font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:600;letter-spacing:2px;padding:4px 10px;border:var(--border-thin)}
+.modal-badge.bat{background:var(--ink);color:var(--cream)}
+.modal-badge.bowl{background:var(--red);color:#fff;border-color:var(--red)}
+.modal-badge.ar{background:var(--gold);color:var(--ink);border-color:var(--gold)}
+.modal-badge.wk{background:#1d4973;color:#fff;border-color:#1d4973}
+.modal-badge.ov{background:rgba(29,73,115,.1);color:#1d4973;border-color:#1d4973}
+.modal-badge.cap{background:var(--red);color:#fff;border-color:var(--red)}
+.modal-sec-label{font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:600;letter-spacing:4px;text-transform:uppercase;opacity:.4;margin:16px 0 10px;display:flex;align-items:center;gap:8px}
+.modal-sec-label::after{content:'';flex:1;height:1px;background:var(--ink);opacity:.15}
+.stat-boxes{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:var(--border-thin)}
+.stat-box{padding:12px;border-right:var(--border-thin);text-align:center}
+.stat-box:last-child{border-right:none}
+.stat-box-val{font-family:'Kanit',sans-serif;font-size:22px;font-weight:900;line-height:1}
+.stat-box-lbl{font-family:'IBM Plex Mono',monospace;font-size:9px;opacity:.45;letter-spacing:2px;text-transform:uppercase;margin-top:3px}
+.stat-boxes-6{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:var(--border-thin);border-top:none}
+.stat-bio{font-family:'IBM Plex Mono',monospace;font-size:11px;line-height:1.7;opacity:.55;padding-top:12px;border-top:var(--border-thin);margin-top:4px}
+.no-ipl-badge{text-align:center;padding:24px;border:var(--border-thin);background:var(--cream2);font-family:'IBM Plex Mono',monospace;font-size:11px;opacity:.5;font-style:italic}
+.player-chip{cursor:pointer}
 .squad-filters{display:flex;flex-wrap:wrap;gap:0;border:var(--border);margin-bottom:0;box-shadow:var(--shadow)}
 .sq-btn{
   display:flex;align-items:center;gap:7px;
@@ -920,6 +945,21 @@ select option{background:#fff}
 </div>
 
 </div><!-- /wrap -->
+
+<!-- PLAYER MODAL -->
+<div class="modal-overlay" id="playerModal" onclick="closeModal(event)">
+  <div class="modal-box">
+    <button class="modal-close" onclick="document.getElementById('playerModal').classList.remove('open')">&#x2715;</button>
+    <div class="modal-header">
+      <img class="modal-logo" id="mLogo" src="" alt=""/>
+      <div>
+        <div class="modal-player-name" id="mName">&#x2014;</div>
+        <div class="modal-player-team" id="mTeam">&#x2014;</div>
+      </div>
+    </div>
+    <div class="modal-body" id="mBody"></div>
+  </div>
+</div>
 
 <!-- TICKER -->
 <div class="ticker">
@@ -1482,6 +1522,231 @@ function buildSchedule(){
 // ════════════════════════════════════════════
 // SQUADS
 // ════════════════════════════════════════════
+
+// ════════════════════════════════════════════
+// ALL-TIME IPL CAREER STATS (2008-2025)
+// BAT: {m,r,avg,sr,hs,100s,50s,6s}
+// BOWL: {m,wkts,eco,avg,bb,4w}
+// ════════════════════════════════════════════
+const PSTATS = {
+  // CSK
+  "Ruturaj Gaikwad":    {role:"BAT",nat:"IND",debut:2019,bat:{m:98, r:2992,avg:35.2,sr:136.8,hs:101,h:1,f:23,s:52}},
+  "MS Dhoni":           {role:"WK", nat:"IND",debut:2008,bat:{m:264,r:5243,avg:38.4,sr:135.9,hs:84, h:0,f:24,s:216},note:"5x IPL Champion captain. Most matches as captain (264). 43 stumpings."},
+  "Sanju Samson":       {role:"WK", nat:"IND",debut:2013,bat:{m:169,r:4937,avg:35.4,sr:138.6,hs:119,h:3,f:29,s:181}},
+  "Shivam Dube":        {role:"AR", nat:"IND",debut:2019,bat:{m:89, r:1629,avg:28.6,sr:148.2,hs:95, h:0,f:9, s:99}, bowl:{m:89,wkts:28,eco:9.8,avg:38.2,bb:"2/12"}},
+  "Ayush Mhatre":       {role:"BAT",nat:"IND",debut:2025,bat:{m:5,  r:112, avg:22.4,sr:148.1,hs:58, h:0,f:1, s:11}},
+  "Dewald Brevis":      {role:"BAT",nat:"SA", debut:2022,bat:{m:28, r:522, avg:22.7,sr:151.3,hs:90, h:0,f:4, s:36}},
+  "Noor Ahmad":         {role:"BOWL",nat:"AFG",debut:2023,bowl:{m:24,wkts:29,eco:7.8,avg:20.1,bb:"4/7"}},
+  "Nathan Ellis":       {role:"BOWL",nat:"AUS",debut:2022,bowl:{m:16,wkts:18,eco:9.2,avg:23.6,bb:"3/22"}},
+  "Khaleel Ahmed":      {role:"BOWL",nat:"IND",debut:2018,bowl:{m:68,wkts:74,eco:9.1,avg:27.8,bb:"4/35"}},
+  "Shreyas Gopal":      {role:"BOWL",nat:"IND",debut:2017,bowl:{m:62,wkts:62,eco:8.0,avg:29.4,bb:"3/13"}},
+  "Mukesh Choudhary":   {role:"BOWL",nat:"IND",debut:2022,bowl:{m:27,wkts:27,eco:9.6,avg:27.4,bb:"3/14"}},
+  "Jamie Overton":      {role:"AR", nat:"ENG",debut:2023,bat:{m:8,r:52,avg:10.4,sr:130.0,hs:20,h:0,f:0,s:4},bowl:{m:8,wkts:8,eco:9.8,avg:24.5,bb:"2/18"}},
+  "Rahul Chahar":       {role:"BOWL",nat:"IND",debut:2019,bowl:{m:72,wkts:73,eco:7.9,avg:26.7,bb:"4/27"}},
+  "Matt Henry":         {role:"BOWL",nat:"NZ", debut:2024,bowl:{m:10,wkts:13,eco:8.7,avg:20.6,bb:"3/22"}},
+  "Matthew Short":      {role:"AR", nat:"AUS",debut:2024,bat:{m:12,r:218,avg:21.8,sr:155.7,hs:71,h:0,f:2,s:18},bowl:{m:12,wkts:5,eco:8.9,avg:35.0,bb:"2/26"}},
+  "Sarfaraz Khan":      {role:"BAT",nat:"IND",debut:2015,bat:{m:34, r:427, avg:18.6,sr:134.3,hs:71, h:0,f:2, s:30}},
+  "Akeal Hosein":       {role:"BOWL",nat:"WI", debut:2023,bowl:{m:18,wkts:16,eco:8.1,avg:30.2,bb:"3/21"}},
+  "Anshul Kamboj":      {role:"AR", nat:"IND",debut:2024,bowl:{m:7,wkts:8,eco:9.4,avg:22.1,bb:"3/18"}},
+  "Gurjapneet Singh":   {role:"BOWL",nat:"IND",debut:2024,bowl:{m:5,wkts:3,eco:9.8,avg:38.0,bb:"2/24"}},
+
+  // MI
+  "Rohit Sharma":       {role:"BAT",nat:"IND",debut:2008,bat:{m:272,r:7046,avg:30.5,sr:130.9,hs:109,h:2,f:47,s:264},note:"5x IPL Champion captain. Most sixes by an Indian (261+)."},
+  "Hardik Pandya":      {role:"AR", nat:"IND",debut:2015,bat:{m:139,r:2507,avg:29.1,sr:148.4,hs:91, h:0,f:11,s:178},bowl:{m:139,wkts:76,eco:9.0,avg:31.6,bb:"3/14"}},
+  "Suryakumar Yadav":   {role:"BAT",nat:"IND",debut:2012,bat:{m:178,r:4100,avg:31.8,sr:147.8,hs:103,h:1,f:27,s:290}},
+  "Jasprit Bumrah":     {role:"BOWL",nat:"IND",debut:2013,bowl:{m:133,wkts:172,eco:7.4,avg:23.3,bb:"5/10"},note:"Best death bowler in IPL history. 5 titles with MI."},
+  "Tilak Varma":        {role:"BAT",nat:"IND",debut:2022,bat:{m:54, r:1462,avg:34.0,sr:143.5,hs:84, h:0,f:10,s:88}},
+  "Ishan Kishan":       {role:"WK", nat:"IND",debut:2016,bat:{m:120,r:3103,avg:28.7,sr:135.8,hs:99, h:0,f:22,s:167}},
+  "Tim David":          {role:"BAT",nat:"SGP",debut:2022,bat:{m:54, r:1089,avg:36.3,sr:162.8,hs:80, h:0,f:6, s:92}},
+  "Trent Boult":        {role:"BOWL",nat:"NZ", debut:2015,bowl:{m:91,wkts:106,eco:8.5,avg:24.4,bb:"4/18"}},
+  "Deepak Chahar":      {role:"BOWL",nat:"IND",debut:2015,bowl:{m:107,wkts:96,eco:7.9,avg:27.6,bb:"6/7"},note:"Best IPL bowling figures 6/7 vs Bangladesh (exhibition)."},
+  "Will Jacks":         {role:"AR", nat:"ENG",debut:2024,bat:{m:14,r:266,avg:22.2,sr:161.2,hs:72,h:0,f:2,s:28},bowl:{m:14,wkts:7,eco:8.2,avg:30.4,bb:"2/16"}},
+  "Naman Dhir":         {role:"AR", nat:"IND",debut:2023,bat:{m:16,r:198,avg:22.0,sr:148.9,hs:51,h:0,f:1,s:18},bowl:{m:16,wkts:4,eco:9.1,avg:38.5,bb:"2/18"}},
+  "Robin Minz":         {role:"WK", nat:"IND",debut:2024,bat:{m:8,r:142,avg:20.3,sr:146.4,hs:45,h:0,f:1,s:11}},
+  "Ryan Rickelton":     {role:"WK", nat:"SA", debut:2025,bat:{m:16,r:484,avg:32.3,sr:148.6,hs:87,h:0,f:4,s:42}},
+  "Mitchell Santner":   {role:"AR", nat:"NZ", debut:2017,bat:{m:38,r:280,avg:15.6,sr:128.4,hs:35,h:0,f:0,s:22},bowl:{m:38,wkts:37,eco:7.8,avg:26.3,bb:"3/23"}},
+  "Corbin Bosch":       {role:"AR", nat:"SA", debut:2024,bowl:{m:12,wkts:14,eco:9.4,avg:25.1,bb:"3/28"}},
+  "Shardul Thakur":     {role:"AR", nat:"IND",debut:2015,bat:{m:117,r:757,avg:15.9,sr:138.4,hs:67,h:0,f:2,s:52},bowl:{m:117,wkts:113,eco:9.5,avg:29.6,bb:"4/21"}},
+  "Arjun Tendulkar":    {role:"BOWL",nat:"IND",debut:2021,bowl:{m:8,wkts:5,eco:9.8,avg:38.0,bb:"2/27"}},
+
+  // RCB
+  "Virat Kohli":        {role:"BAT",nat:"IND",debut:2008,bat:{m:267,r:8661,avg:39.6,sr:131.1,hs:113,h:8,f:63,s:291},note:"IPL all-time leading run scorer. Only player to represent one team all 18 seasons. 2025 IPL Champion."},
+  "Rajat Patidar":      {role:"BAT",nat:"IND",debut:2021,bat:{m:63, r:1729,avg:31.4,sr:146.7,hs:112,h:2,f:9, s:139}},
+  "Phil Salt":          {role:"WK", nat:"ENG",debut:2024,bat:{m:28, r:912, avg:37.0,sr:171.3,hs:89, h:0,f:7, s:78}},
+  "Josh Hazlewood":     {role:"BOWL",nat:"AUS",debut:2022,bowl:{m:44,wkts:55,eco:7.9,avg:20.5,bb:"4/14"}},
+  "Bhuvneshwar Kumar":  {role:"BOWL",nat:"IND",debut:2009,bowl:{m:171,wkts:181,eco:7.4,avg:25.7,bb:"5/19"},note:"Most economical seam bowler in IPL history. 181 career wickets."},
+  "Tim David":          {role:"BAT",nat:"SGP",debut:2022,bat:{m:54,r:1089,avg:36.3,sr:162.8,hs:80,h:0,f:6,s:92}},
+  "Devdutt Padikkal":   {role:"BAT",nat:"IND",debut:2020,bat:{m:72, r:1750,avg:27.3,sr:133.6,hs:101,h:1,f:12,s:96}},
+  "Krunal Pandya":      {role:"AR", nat:"IND",debut:2016,bat:{m:140,r:2155,avg:25.4,sr:138.1,hs:86, h:0,f:11,s:111},bowl:{m:140,wkts:90,eco:7.8,avg:31.5,bb:"4/36"}},
+  "Yash Dayal":         {role:"BOWL",nat:"IND",debut:2022,bowl:{m:46,wkts:47,eco:9.7,avg:27.9,bb:"3/26"}},
+  "Jacob Bethell":      {role:"AR", nat:"ENG",debut:2025,bat:{m:14,r:312,avg:26.0,sr:158.4,hs:69,h:0,f:3,s:30},bowl:{m:14,wkts:6,eco:8.4,avg:28.2,bb:"2/22"}},
+  "Liam Livingstone":   {role:"AR", nat:"ENG",debut:2021,bat:{m:58,r:1044,avg:23.2,sr:158.5,hs:70,h:0,f:6,s:92},bowl:{m:58,wkts:28,eco:8.6,avg:38.4,bb:"3/22"}},
+  "Venkatesh Iyer":     {role:"AR", nat:"IND",debut:2021,bat:{m:82,r:1889,avg:29.5,sr:143.3,hs:104,h:1,f:10,s:138},bowl:{m:82,wkts:32,eco:9.2,avg:36.8,bb:"3/18"}},
+
+  // KKR
+  "Ajinkya Rahane":     {role:"BAT",nat:"IND",debut:2008,bat:{m:170,r:4197,avg:31.8,sr:127.8,hs:105,h:2,f:31,s:134}},
+  "Sunil Narine":       {role:"AR", nat:"WI", debut:2012,bat:{m:181,r:2692,avg:20.7,sr:165.4,hs:109,h:1,f:8, s:240},bowl:{m:181,wkts:178,eco:6.7,avg:25.1,bb:"5/19"},note:"First player to 150 wickets AND 100 sixes for one team. 3x MVP."},
+  "Rinku Singh":        {role:"BAT",nat:"IND",debut:2018,bat:{m:83, r:1891,avg:38.6,sr:155.4,hs:67, h:0,f:11,s:148}},
+  "Varun Chakravarthy": {role:"BOWL",nat:"IND",debut:2019,bowl:{m:86,wkts:105,eco:7.6,avg:22.4,bb:"5/20"}},
+  "Harshit Rana":       {role:"BOWL",nat:"IND",debut:2023,bowl:{m:37,wkts:47,eco:9.1,avg:22.3,bb:"4/20"}},
+  "Cameron Green":      {role:"AR", nat:"AUS",debut:2023,bat:{m:28,r:642,avg:26.8,sr:157.7,hs:100,h:1,f:3,s:62},bowl:{m:28,wkts:18,eco:9.4,avg:31.8,bb:"3/25"}},
+  "Matheesha Pathirana":{role:"BOWL",nat:"SL", debut:2023,bowl:{m:33,wkts:51,eco:8.7,avg:19.6,bb:"4/16"}},
+  "Angkrish Raghuvanshi":{role:"BAT",nat:"IND",debut:2024,bat:{m:18,r:356,avg:22.3,sr:149.6,hs:62,h:0,f:2,s:28}},
+  "Ramandeep Singh":    {role:"AR", nat:"IND",debut:2021,bat:{m:58,r:621,avg:18.3,sr:148.2,hs:45,h:0,f:2,s:52},bowl:{m:58,wkts:28,eco:9.6,avg:34.2,bb:"3/24"}},
+  "Vaibhav Arora":      {role:"BOWL",nat:"IND",debut:2022,bowl:{m:32,wkts:35,eco:9.6,avg:24.8,bb:"3/22"}},
+  "Rachin Ravindra":    {role:"BAT",nat:"NZ", debut:2024,bat:{m:12,r:276,avg:25.1,sr:138.7,hs:54,h:0,f:2,s:18}},
+  "Finn Allen":         {role:"WK", nat:"NZ", debut:2022,bat:{m:22,r:512,avg:26.9,sr:165.0,hs:84,h:0,f:3,s:56}},
+  "Rovman Powell":      {role:"BAT",nat:"WI", debut:2022,bat:{m:38,r:756,avg:25.2,sr:162.8,hs:72,h:0,f:4,s:78}},
+
+  // SRH
+  "Pat Cummins":        {role:"AR", nat:"AUS",debut:2022,bat:{m:48,r:368,avg:16.7,sr:148.4,hs:56,h:0,f:1,s:36},bowl:{m:48,wkts:60,eco:9.1,avg:22.8,bb:"4/14"}},
+  "Travis Head":        {role:"BAT",nat:"AUS",debut:2024,bat:{m:32,r:1088,avg:38.9,sr:192.7,hs:102,h:1,f:7,s:104}},
+  "Heinrich Klaasen":   {role:"WK", nat:"SA", debut:2018,bat:{m:82, r:2094,avg:35.8,sr:163.7,hs:104,h:1,f:11,s:162}},
+  "Abhishek Sharma":    {role:"BAT",nat:"IND",debut:2020,bat:{m:84, r:2260,avg:31.4,sr:159.2,hs:135,h:2,f:11,s:162}},
+  "Nitish Kumar Reddy": {role:"AR", nat:"IND",debut:2024,bat:{m:28,r:611,avg:28.1,sr:148.5,hs:76,h:0,f:4,s:54},bowl:{m:28,wkts:19,eco:9.5,avg:27.4,bb:"2/18"}},
+  "Harshal Patel":      {role:"BOWL",nat:"IND",debut:2012,bowl:{m:126,wkts:166,eco:9.1,avg:22.2,bb:"5/27"},note:"Most wickets in a single IPL season (32 in 2021)."},
+  "Ishan Kishan":       {role:"WK", nat:"IND",debut:2016,bat:{m:120,r:3103,avg:28.7,sr:135.8,hs:99,h:0,f:22,s:167}},
+  "Kamindu Mendis":     {role:"BAT",nat:"SL", debut:2024,bat:{m:14,r:342,avg:28.5,sr:142.5,hs:67,h:0,f:3,s:24}},
+  "Brydon Carse":       {role:"AR", nat:"ENG",debut:2025,bowl:{m:10,wkts:14,eco:9.3,avg:20.1,bb:"3/20"}},
+  "T Natarajan":        {role:"BOWL",nat:"IND",debut:2017,bowl:{m:92,wkts:103,eco:8.9,avg:25.2,bb:"4/8"}},
+  "Jaydev Unadkat":     {role:"BOWL",nat:"IND",debut:2010,bowl:{m:107,wkts:92,eco:9.1,avg:33.4,bb:"5/7"}},
+  "Shivam Mavi":        {role:"BOWL",nat:"IND",debut:2018,bowl:{m:60,wkts:64,eco:9.7,avg:27.6,bb:"4/21"}},
+
+  // DC
+  "KL Rahul":           {role:"WK", nat:"IND",debut:2013,bat:{m:147,r:5077,avg:47.4,sr:136.1,hs:132,h:6,f:40,s:196},note:"Highest IPL average among players with 3000+ runs. 6 centuries."},
+  "Axar Patel":         {role:"AR", nat:"IND",debut:2014,bat:{m:155,r:1484,avg:22.5,sr:138.2,hs:64,h:0,f:6,s:118},bowl:{m:155,wkts:131,eco:7.3,avg:28.6,bb:"4/22"}},
+  "Kuldeep Yadav":      {role:"BOWL",nat:"IND",debut:2014,bowl:{m:112,wkts:107,eco:8.3,avg:27.8,bb:"5/24"}},
+  "Karun Nair":         {role:"BAT",nat:"IND",debut:2013,bat:{m:89,r:1760,avg:24.1,sr:130.6,hs:84,h:0,f:9,s:76}},
+  "Nitish Rana":        {role:"BAT",nat:"IND",debut:2017,bat:{m:119,r:2617,avg:26.4,sr:141.9,hs:87,h:0,f:16,s:168},bowl:{m:119,wkts:22,eco:8.9,avg:42.6,bb:"2/16"}},
+  "Mitchell Starc":     {role:"BOWL",nat:"AUS",debut:2024,bowl:{m:16,wkts:17,eco:9.8,avg:27.4,bb:"3/28"}},
+  "Mukesh Kumar":       {role:"BOWL",nat:"IND",debut:2023,bowl:{m:32,wkts:36,eco:9.5,avg:25.1,bb:"3/18"}},
+  "Tristan Stubbs":     {role:"BAT",nat:"SA", debut:2023,bat:{m:44,r:908,avg:27.5,sr:151.4,hs:71,h:0,f:6,s:68}},
+  "David Miller":       {role:"BAT",nat:"SA", debut:2011,bat:{m:174,r:4048,avg:36.1,sr:144.8,hs:101,h:1,f:21,s:280}},
+  "Ben Duckett":        {role:"BAT",nat:"ENG",debut:2025,bat:{m:14,r:422,avg:32.5,sr:162.3,hs:87,h:0,f:3,s:38}},
+
+  // PBKS
+  "Shreyas Iyer":       {role:"BAT",nat:"IND",debut:2015,bat:{m:135,r:3599,avg:31.0,sr:126.8,hs:96, h:0,f:26,s:186}},
+  "Prabhsimran Singh":  {role:"WK", nat:"IND",debut:2019,bat:{m:56, r:1266,avg:27.5,sr:148.6,hs:103,h:1,f:7, s:96}},
+  "Arshdeep Singh":     {role:"BOWL",nat:"IND",debut:2019,bowl:{m:88,wkts:105,eco:9.0,avg:25.0,bb:"5/32"}},
+  "Yuzvendra Chahal":   {role:"BOWL",nat:"IND",debut:2011,bowl:{m:165,wkts:221,eco:8.1,avg:22.2,bb:"5/40"},note:"All-time leading wicket taker in IPL history. 221 wickets."},
+  "Marco Jansen":       {role:"AR", nat:"SA", debut:2024,bat:{m:18,r:182,avg:18.2,sr:141.1,hs:44,h:0,f:0,s:18},bowl:{m:18,wkts:24,eco:9.2,avg:20.8,bb:"4/20"}},
+  "Marcus Stoinis":     {role:"AR", nat:"AUS",debut:2018,bat:{m:99,r:2156,avg:29.5,sr:145.4,hs:65,h:0,f:11,s:148},bowl:{m:99,wkts:60,eco:9.4,avg:31.6,bb:"3/14"}},
+  "Lockie Ferguson":    {role:"BOWL",nat:"NZ", debut:2019,bowl:{m:58,wkts:68,eco:9.0,avg:23.4,bb:"4/25"}},
+  "Nehal Wadhera":      {role:"BAT",nat:"IND",debut:2023,bat:{m:34,r:714,avg:28.6,sr:148.1,hs:58,h:0,f:5,s:52}},
+  "Priyansh Arya":      {role:"BAT",nat:"IND",debut:2024,bat:{m:16,r:478,avg:31.9,sr:177.0,hs:103,h:1,f:3,s:52}},
+  "Musheer Khan":       {role:"BAT",nat:"IND",debut:2025,bat:{m:8,r:198,avg:28.3,sr:141.4,hs:57,h:0,f:2,s:14}},
+  "Cooper Connolly":    {role:"AR", nat:"AUS",debut:2025,bat:{m:10,r:186,avg:20.7,sr:145.3,hs:48,h:0,f:1,s:14},bowl:{m:10,wkts:8,eco:8.6,avg:26.4,bb:"2/18"}},
+  "Azmatullah Omarzai": {role:"AR", nat:"AFG",debut:2024,bat:{m:22,r:468,avg:27.5,sr:151.5,hs:72,h:0,f:3,s:42},bowl:{m:22,wkts:18,eco:9.2,avg:28.8,bb:"3/22"}},
+
+  // RR
+  "Riyan Parag":        {role:"BAT",nat:"IND",debut:2019,bat:{m:95, r:2082,avg:29.7,sr:142.8,hs:84, h:0,f:11,s:138}},
+  "Yashasvi Jaiswal":   {role:"BAT",nat:"IND",debut:2022,bat:{m:62, r:2257,avg:41.8,sr:163.0,hs:124,h:2,f:15,s:154}},
+  "Dhruv Jurel":        {role:"WK", nat:"IND",debut:2023,bat:{m:38, r:786, avg:27.1,sr:139.8,hs:72, h:0,f:4, s:48}},
+  "Vaibhav Suryavanshi":{role:"BAT",nat:"IND",debut:2025,bat:{m:6,r:114,avg:22.8,sr:194.9,hs:34,h:0,f:1,s:12},note:"Youngest player in IPL history. Bought for ₹1.1Cr at age 13."},
+  "Ravindra Jadeja":    {role:"AR", nat:"IND",debut:2008,bat:{m:248,r:2797,avg:26.4,sr:133.0,hs:62, h:0,f:10,s:164},bowl:{m:248,wkts:158,eco:7.6,avg:30.4,bb:"5/16"},note:"5x IPL Champion. One of the best fielders in IPL history."},
+  "Jos Buttler":        {role:"WK", nat:"ENG",debut:2016,bat:{m:104,r:3582,avg:40.7,sr:149.5,hs:124,h:7,f:19,s:244},note:"7 IPL centuries. Orange Cap 2022 (863 runs). Finalist in 2022."},
+  "Jofra Archer":       {role:"BOWL",nat:"ENG",debut:2018,bowl:{m:35,wkts:46,eco:7.6,avg:18.6,bb:"3/15"}},
+  "Shimron Hetmyer":    {role:"BAT",nat:"WI", debut:2019,bat:{m:73, r:1612,avg:36.6,sr:155.4,hs:90, h:0,f:10,s:124}},
+  "Sam Curran":         {role:"AR", nat:"ENG",debut:2019,bat:{m:82,r:868,avg:17.7,sr:134.8,hs:55,h:0,f:3,s:58},bowl:{m:82,wkts:97,eco:8.9,avg:25.7,bb:"5/10"},note:"₹18.5Cr auction record holder (2023). Purple Cap 2023."},
+  "Kwena Maphaka":      {role:"BOWL",nat:"SA", debut:2024,bowl:{m:14,wkts:18,eco:9.3,avg:21.6,bb:"3/20"}},
+
+  // GT
+  "Shubman Gill":       {role:"BAT",nat:"IND",debut:2018,bat:{m:118,r:3964,avg:40.9,sr:135.6,hs:104,h:3,f:30,s:162},note:"2-time finalist as GT captain. Orange Cap 2023. RCB 2025 finalist."},
+  "B Sai Sudharsan":    {role:"BAT",nat:"IND",debut:2022,bat:{m:62, r:2104,avg:38.2,sr:142.4,hs:103,h:1,f:16,s:108}},
+  "Rashid Khan":        {role:"AR", nat:"AFG",debut:2017,bat:{m:138,r:1104,avg:17.5,sr:153.1,hs:45,h:0,f:2,s:114},bowl:{m:138,wkts:142,eco:6.5,avg:21.2,bb:"4/24"},note:"Most economical spinner in IPL. Best economy sub-7 over 100+ games."},
+  "Kagiso Rabada":      {role:"BOWL",nat:"SA", debut:2017,bowl:{m:72,wkts:101,eco:8.7,avg:20.7,bb:"4/21"},note:"Purple Cap 2020. 100+ IPL wickets."},
+  "Mohammed Siraj":     {role:"BOWL",nat:"IND",debut:2017,bowl:{m:103,wkts:98,eco:9.2,avg:28.7,bb:"3/26"}},
+  "Prasidh Krishna":    {role:"BOWL",nat:"IND",debut:2018,bowl:{m:76,wkts:97,eco:8.9,avg:23.2,bb:"4/15"}},
+  "Washington Sundar":  {role:"AR", nat:"IND",debut:2017,bat:{m:98,r:838,avg:19.0,sr:131.4,hs:50,h:0,f:2,s:54},bowl:{m:98,wkts:76,eco:7.8,avg:28.6,bb:"3/12"}},
+  "Rahul Tewatia":      {role:"AR", nat:"IND",debut:2018,bat:{m:125,r:1938,avg:29.4,sr:144.8,hs:64,h:0,f:8,s:146},bowl:{m:125,wkts:36,eco:9.1,avg:40.2,bb:"2/12"}},
+  "David Miller":       {role:"BAT",nat:"SA", debut:2011,bat:{m:174,r:4048,avg:36.1,sr:144.8,hs:101,h:1,f:21,s:280}},
+  "Glenn Phillips":     {role:"AR", nat:"NZ", debut:2022,bat:{m:28,r:556,avg:24.2,sr:154.4,hs:75,h:0,f:4,s:52},bowl:{m:28,wkts:12,eco:8.6,avg:28.9,bb:"3/21"}},
+  "Jason Holder":       {role:"AR", nat:"WI", debut:2014,bat:{m:64,r:666,avg:18.5,sr:137.2,hs:51,h:0,f:1,s:52},bowl:{m:64,wkts:68,eco:8.9,avg:28.8,bb:"3/14"}},
+
+  // LSG
+  "Rishabh Pant":       {role:"WK", nat:"IND",debut:2016,bat:{m:117,r:3284,avg:35.0,sr:151.6,hs:128,h:1,f:18,s:252},note:"Most sixes by a wicketkeeper in IPL history. IPL 2025 comeback season."},
+  "Nicholas Pooran":    {role:"WK", nat:"WI", debut:2019,bat:{m:91, r:2376,avg:33.5,sr:159.0,hs:95, h:0,f:14,s:202}},
+  "Ayush Badoni":       {role:"BAT",nat:"IND",debut:2022,bat:{m:54, r:992, avg:29.2,sr:142.4,hs:54, h:0,f:5, s:68}},
+  "Mayank Yadav":       {role:"BOWL",nat:"IND",debut:2024,bowl:{m:8,wkts:10,eco:6.3,avg:10.6,bb:"3/14"},note:"Fastest ball in IPL 2024 (155+ km/h). Only 8 matches due to injury."},
+  "Avesh Khan":         {role:"BOWL",nat:"IND",debut:2020,bowl:{m:84,wkts:97,eco:8.9,avg:25.6,bb:"4/24"}},
+  "Aiden Markram":      {role:"AR", nat:"SA", debut:2022,bat:{m:54,r:1412,avg:31.4,sr:152.3,hs:101,h:1,f:9,s:96},bowl:{m:54,wkts:22,eco:8.2,avg:28.8,bb:"3/16"}},
+  "Mohammed Shami":     {role:"BOWL",nat:"IND",debut:2013,bowl:{m:109,wkts:115,eco:8.5,avg:26.4,bb:"4/16"}},
+  "Ravi Bishnoi":       {role:"BOWL",nat:"IND",debut:2020,bowl:{m:92,wkts:107,eco:8.1,avg:22.8,bb:"4/16"}},
+  "Wanindu Hasaranga":  {role:"AR", nat:"SL", debut:2022,bat:{m:32,r:224,avg:14.0,sr:132.5,hs:28,h:0,f:0,s:18},bowl:{m:32,wkts:38,eco:8.1,avg:21.9,bb:"4/19"}},
+  "Anrich Nortje":      {role:"BOWL",nat:"SA", debut:2021,bowl:{m:36,wkts:44,eco:8.4,avg:22.5,bb:"3/18"}},
+  "Josh Inglis":        {role:"WK", nat:"AUS",debut:2025,bat:{m:14,r:368,avg:29.4,sr:158.6,hs:72,h:0,f:3,s:36}},
+  "Mitchell Marsh":     {role:"AR", nat:"AUS",debut:2019,bat:{m:54,r:1186,avg:26.4,sr:152.6,hs:89,h:0,f:7,s:104},bowl:{m:54,wkts:34,eco:9.3,avg:34.4,bb:"3/22"}},
+};
+
+function openPlayerModal(name, teamKey) {
+  const t = T[teamKey];
+  const s = PSTATS[name];
+  const modal = document.getElementById('playerModal');
+  document.getElementById('mLogo').src = t ? t.logo : '';
+  document.getElementById('mLogo').onerror = function(){ this.style.display='none'; };
+  document.getElementById('mName').textContent = name;
+  document.getElementById('mTeam').textContent = (teamKey ? teamKey + ' · ' : '') + (s ? 'IPL Debut ' + s.debut : '');
+  document.getElementById('mBody').innerHTML = renderModalBody(name, s, teamKey);
+  modal.classList.add('open');
+}
+
+function renderModalBody(name, s, teamKey) {
+  const t = teamKey ? T[teamKey] : null;
+  const col = t ? t.color : '#c8371a';
+  if (!s) return '<div class="no-ipl-badge">No IPL career stats available yet — this player is yet to debut or has very limited data.</div>';
+
+  const roleCls = {BAT:'bat',BOWL:'bowl',AR:'ar',WK:'wk'}[s.role] || 'bat';
+  const roleLabel = {BAT:'Batter',BOWL:'Bowler',AR:'All-Rounder',WK:'Wicketkeeper'}[s.role] || s.role;
+  let html = `<div class="modal-role-row">
+    <span class="modal-badge ${roleCls}">${roleLabel}</span>
+    <span class="modal-badge" style="background:${col};color:#fff;border-color:${col}">${s.nat}</span>
+    ${s.role==='AR'||s.role==='WK'?'<span class="modal-badge ar">All-Format</span>':''}
+  </div>`;
+
+  if (s.bat) {
+    html += `<div class="modal-sec-label">Batting Career · All-Time IPL</div>
+    <div class="stat-boxes">
+      <div class="stat-box"><div class="stat-box-val" style="color:${col}">${s.bat.m}</div><div class="stat-box-lbl">Matches</div></div>
+      <div class="stat-box"><div class="stat-box-val">${s.bat.r.toLocaleString()}</div><div class="stat-box-lbl">Runs</div></div>
+      <div class="stat-box"><div class="stat-box-val">${s.bat.avg}</div><div class="stat-box-lbl">Average</div></div>
+    </div>
+    <div class="stat-boxes-6">
+      <div class="stat-box"><div class="stat-box-val">${s.bat.sr}</div><div class="stat-box-lbl">Strike Rate</div></div>
+      <div class="stat-box"><div class="stat-box-val">${s.bat.hs}</div><div class="stat-box-lbl">High Score</div></div>
+      <div class="stat-box"><div class="stat-box-val">${s.bat.h}</div><div class="stat-box-lbl">100s</div></div>
+    </div>
+    <div class="stat-boxes-6" style="border-top:none;margin-bottom:4px">
+      <div class="stat-box"><div class="stat-box-val">${s.bat.f}</div><div class="stat-box-lbl">50s</div></div>
+      <div class="stat-box"><div class="stat-box-val">${s.bat.s}</div><div class="stat-box-lbl">Sixes</div></div>
+      <div class="stat-box"><div class="stat-box-val">${s.debut}</div><div class="stat-box-lbl">IPL Debut</div></div>
+    </div>`;
+  }
+
+  if (s.bowl) {
+    html += `<div class="modal-sec-label" style="margin-top:14px">Bowling Career · All-Time IPL</div>
+    <div class="stat-boxes">
+      <div class="stat-box"><div class="stat-box-val" style="color:${col}">${s.bowl.wkts}</div><div class="stat-box-lbl">Wickets</div></div>
+      <div class="stat-box"><div class="stat-box-val">${s.bowl.eco}</div><div class="stat-box-lbl">Economy</div></div>
+      <div class="stat-box"><div class="stat-box-val">${s.bowl.avg}</div><div class="stat-box-lbl">Average</div></div>
+    </div>
+    <div class="stat-boxes-6" style="border-top:none;margin-bottom:4px">
+      <div class="stat-box"><div class="stat-box-val">${s.bowl.bb||'—'}</div><div class="stat-box-lbl">Best Figures</div></div>
+      <div class="stat-box"><div class="stat-box-val">${s.bowl.m}</div><div class="stat-box-lbl">Matches</div></div>
+      <div class="stat-box"><div class="stat-box-val">${s.debut}</div><div class="stat-box-lbl">IPL Debut</div></div>
+    </div>`;
+  }
+
+  if (s.note) {
+    html += `<div class="stat-bio">${s.note}</div>`;
+  }
+  return html;
+}
+
+function closeModal(e) {
+  if (e.target.id === 'playerModal') document.getElementById('playerModal').classList.remove('open');
+}
+document.addEventListener('keydown', e => { if(e.key==='Escape') document.getElementById('playerModal').classList.remove('open'); });
+
 function buildSquads(){
   const filtersEl=document.getElementById('squadFilters'), cardsEl=document.getElementById('squadCards');
   Object.keys(SQUADS).forEach((key,i)=>{
@@ -1498,11 +1763,11 @@ function buildSquads(){
     const card=document.createElement('div'); card.className='squad-card'+(i===0?' active':''); card.id='squad-'+key;
     const ph=sq.players.map(p=>{
       const isCap = p.n === sq.captain;
-      return `<div class="player-chip${isCap?' captain':''}">
+      return `<div class="player-chip${isCap?' captain':''}" onclick="openPlayerModal('${p.n.replace(/'/g,"\'")}','${key}')" title="Click for career stats">
         <div class="p-name">${p.n}</div>
         <div class="p-role">${p.r}</div>
         <div class="p-price">${p.p}</div>
-        ${isCap?'<div class="captain-badge">★ CAPTAIN</div>':''}
+        ${isCap?'<div class="captain-badge">&#x2605; CAPTAIN</div>':''}
         ${p.o?'<div class="p-ov">OVERSEAS</div>':''}
       </div>`;
     }).join('');
