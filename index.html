@@ -25,6 +25,52 @@
 
 html{scroll-behavior:smooth}
 
+
+/* DARK MODE */
+body.dark{
+  --cream:#111008;
+  --cream2:#1a1710;
+  --ink:#f5f0e4;
+  --ink2:#c8c0a8;
+  --border:3px solid #f5f0e4;
+  --border-thin:1.5px solid #f5f0e4;
+  --shadow:4px 4px 0 #f5f0e4;
+  --shadow-red:4px 4px 0 #c8371a;
+  --shadow-lg:6px 6px 0 #f5f0e4;
+  background-image:
+    repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(245,240,228,0.05) 39px,rgba(245,240,228,0.05) 40px),
+    repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(245,240,228,0.05) 39px,rgba(245,240,228,0.05) 40px);
+}
+body.dark .modal-box{background:var(--cream);border-color:var(--ink)}
+body.dark .modal-header{background:var(--cream2);color:var(--ink)}
+body.dark .modal-close{color:var(--ink)}
+body.dark .no-ipl-badge{background:var(--cream2)}
+body.dark select option{background:#1a1710;color:#f5f0e4}
+body.dark .await-box{background:var(--cream2)}
+
+/* THEME TOGGLE */
+.theme-toggle{
+  display:flex;align-items:center;gap:8px;
+  cursor:pointer;background:none;border:var(--border-thin);
+  padding:6px 12px;font-family:'IBM Plex Mono',monospace;
+  font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;
+  color:var(--ink);transition:background .2s,color .2s;
+  white-space:nowrap;
+}
+.theme-toggle:hover{background:var(--ink);color:var(--cream)}
+.toggle-track{
+  width:32px;height:16px;border-radius:8px;
+  background:var(--ink);border:1.5px solid var(--ink);
+  position:relative;transition:background .2s;flex-shrink:0;
+}
+.toggle-thumb{
+  position:absolute;top:2px;left:2px;
+  width:10px;height:10px;border-radius:50%;
+  background:var(--cream);transition:transform .25s cubic-bezier(.34,1.56,.64,1);
+}
+body.dark .toggle-thumb{transform:translateX(16px)}
+body.dark .toggle-track{background:var(--red);border-color:var(--red)}
+body.dark .theme-toggle{border-color:var(--ink)}
 body{
   font-family:'Kanit',sans-serif;
   background:var(--cream);
@@ -697,7 +743,13 @@ select option{background:#fff}
   <div class="masthead-top wrap">
     <a href="https://yerra-vamsi-markandeya.vercel.app/" target="_blank" class="masthead-edition" style="text-decoration:none;cursor:pointer;border-bottom:1.5px solid currentColor;padding-bottom:1px;transition:opacity .2s" onmouseover="this.style.opacity='.7'" onmouseout="this.style.opacity='1'">BUILT BY VAMSI MARKANDEYA</a>
     <div class="masthead-logo">SIXTH<span>STUMP</span></div>
-    <div class="masthead-sub">TATA IPL 2026<br>WIN PREDICTOR</div>
+    <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px">
+      <button class="theme-toggle" onclick="toggleTheme()" id="themeToggle" title="Toggle dark mode">
+        <div class="toggle-track"><div class="toggle-thumb"></div></div>
+        <span id="themeLabel">DARK</span>
+      </button>
+      <div class="masthead-sub">TATA IPL 2026<br>WIN PREDICTOR</div>
+    </div>
   </div>
   <div class="masthead-rule">
     <div class="masthead-rule-txt" id="tickerTop">TOURNAMENT BEGINS 28 MARCH 2026 · RCB vs SRH · BENGALURU · 84 MATCHES · 10 TEAMS · 65 DAYS OF CRICKET</div>
@@ -1882,6 +1934,23 @@ function launchConfetti(col){
 
 // INIT
 refreshVenue(); refreshToss();
+
+// ════════════════════════════════
+// THEME TOGGLE
+// ════════════════════════════════
+function toggleTheme(){
+  const isDark = document.body.classList.toggle('dark');
+  document.getElementById('themeLabel').textContent = isDark ? 'LIGHT' : 'DARK';
+  localStorage.setItem('sixthstump-theme', isDark ? 'dark' : 'light');
+}
+(function initTheme(){
+  const saved = localStorage.getItem('sixthstump-theme');
+  if(saved === 'dark'){
+    document.body.classList.add('dark');
+    const lbl = document.getElementById('themeLabel');
+    if(lbl) lbl.textContent = 'LIGHT';
+  }
+})();
 </script>
 </body>
 </html>
