@@ -200,6 +200,36 @@ body.dark .api-key-input{background:var(--cream2);color:var(--ink)}
 body.dark .live-card-head{background:var(--ink2)}
 body.dark .live-ctrl-btn{color:var(--ink)}
 body.dark .live-toolbar{background:var(--cream2)}
+
+.live-setup-card{
+  border:var(--border);border-top:none;
+  padding:36px;text-align:center;
+  box-shadow:var(--shadow-lg);
+}
+.live-setup-icon{font-size:48px;margin-bottom:16px}
+.live-setup-title{
+  font-family:'Kanit',sans-serif;font-size:20px;font-weight:900;
+  letter-spacing:3px;text-transform:uppercase;
+  margin-bottom:14px;color:var(--ink);
+}
+.live-setup-body{
+  font-family:'IBM Plex Mono',monospace;font-size:12px;
+  line-height:1.9;opacity:.65;max-width:420px;margin:0 auto 20px;
+  text-align:left;
+}
+.live-setup-body code{
+  background:var(--cream2);border:var(--border-thin);
+  padding:1px 6px;font-size:11px;
+}
+.live-setup-btn{
+  display:inline-block;
+  font-family:'Kanit',sans-serif;font-size:13px;font-weight:900;
+  letter-spacing:2px;text-transform:uppercase;
+  padding:12px 24px;background:var(--red);color:#fff;
+  border:var(--border);box-shadow:var(--shadow);
+  text-decoration:none;transition:transform .1s,box-shadow .1s;
+}
+.live-setup-btn:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink)}
 /* THEME TOGGLE */
 .theme-toggle{
   display:flex;align-items:center;gap:8px;
@@ -2155,12 +2185,45 @@ function initLive() {
 
 async function fetchLive() {
   const refreshTxt = document.getElementById('liveRefreshTxt');
+  const statusEl   = document.getElementById('liveStatus');
+  const noBox      = document.getElementById('noMatchBox');
+  const cards      = document.getElementById('liveCards');
+
+  // Detect if running locally (not on Vercel)
+  const isLocal = location.protocol === 'file:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+  if (isLocal) {
+    if (statusEl) statusEl.textContent = 'Push to Vercel to enable live scores';
+    if (refreshTxt) refreshTxt.textContent = 'Live scores require deployment on Vercel';
+    if (cards) cards.innerHTML = `
+      <div class="live-setup-card">
+        <div class="live-setup-icon">&#127760;</div>
+        <div class="live-setup-title">DEPLOY TO ACTIVATE</div>
+        <div class="live-setup-body">
+          Live scores work on your deployed Vercel site.<br>
+          You are currently viewing this file locally.<br><br>
+          <strong>Steps to activate:</strong><br>
+          1. Push <code>api/live.js</code> + <code>vercel.json</code> to GitHub<br>
+          2. Add <code>CRICAPI_KEY</code> in Vercel → Settings → Environment Variables<br>
+          3. Visit your live Vercel URL — scores will load automatically
+        </div>
+        <a href="https://vercel.com/dashboard" target="_blank" class="live-setup-btn">Open Vercel Dashboard &#8599;</a>
+      </div>`;
+    if (noBox) noBox.style.display = 'none';
+    return;
+  }
+
   if (refreshTxt) refreshTxt.textContent = 'Fetching…';
 
   try {
     const res  = await fetch('/api/live');
-    const json = await res.json();
 
+    // If the route doesn't exist yet (not deployed properly)
+    if (res.status === 404) {
+      showDeployError();
+      return;
+    }
+
+    const json = await res.json();
     if (json.error) { showLiveError(json.error); return; }
     if (!json.status || json.status !== 'success') { showLiveError('Could not load scores — try refreshing.'); return; }
 
@@ -2175,23 +2238,39 @@ async function fetchLive() {
 
     const now = new Date();
     if (refreshTxt) refreshTxt.textContent = `Last updated ${now.toLocaleTimeString('en-IN')} · auto-refreshes every 30s`;
-    const statusEl = document.getElementById('liveStatus');
     if (statusEl) statusEl.textContent = ipl.length
       ? `${ipl.length} match${ipl.length > 1 ? 'es' : ''} in progress`
       : 'No IPL matches right now';
 
-    const noBox = document.getElementById('noMatchBox');
     if (ipl.length === 0) {
       if (noBox) noBox.style.display = 'block';
-      document.getElementById('liveCards').innerHTML = '';
+      if (cards) cards.innerHTML = '';
     } else {
       if (noBox) noBox.style.display = 'none';
       renderLiveCards(ipl);
     }
 
   } catch(err) {
-    showLiveError('Network error — check your connection.');
+    showLiveError('Network error — check your connection and try again.');
   }
+}
+
+function showDeployError() {
+  const cards = document.getElementById('liveCards');
+  if (cards) cards.innerHTML = `
+    <div class="live-setup-card">
+      <div class="live-setup-icon">&#9888;</div>
+      <div class="live-setup-title">SETUP INCOMPLETE</div>
+      <div class="live-setup-body">
+        The <code>/api/live</code> route is missing.<br><br>
+        <strong>Make sure you have pushed:</strong><br>
+        &bull; <code>api/live.js</code><br>
+        &bull; <code>vercel.json</code><br><br>
+        And added <code>CRICAPI_KEY</code> in Vercel → Settings → Environment Variables.
+      </div>
+      <a href="https://vercel.com/dashboard" target="_blank" class="live-setup-btn">Open Vercel Dashboard &#8599;</a>
+    </div>`;
+  document.getElementById('liveStatus').textContent = 'Setup required';
 }
 
 function isIPLTeam(teams) {
