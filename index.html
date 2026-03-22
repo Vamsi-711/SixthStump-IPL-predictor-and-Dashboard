@@ -783,24 +783,25 @@ button,select,.tab-btn,.sq-btn,.icat-btn,.yr-btn,.player-chip{
 .cd-label{
   font-family:'IBM Plex Mono',monospace;
   font-size:10px;letter-spacing:3px;text-transform:uppercase;
-  opacity:.5;margin-bottom:2px;
+  color:var(--cream);opacity:.5;margin-bottom:2px;
 }
 .cd-match{
   font-family:'Kanit',sans-serif;
   font-size:14px;font-weight:800;letter-spacing:1px;text-transform:uppercase;
+  color:var(--cream);
 }
 .cd-timer{
   display:flex;gap:0;align-items:center;
 }
 .cd-unit{
   text-align:center;padding:6px 10px;
-  border:1.5px solid rgba(245,240,228,.2);
+  border:1.5px solid rgba(245,240,228,.25);
   border-right:none;
 }
-.cd-unit:last-child{border-right:1.5px solid rgba(245,240,228,.2)}
+.cd-unit:last-child{border-right:1.5px solid rgba(245,240,228,.25)}
 .cd-num{
   font-family:'Kanit',sans-serif;font-size:22px;font-weight:900;
-  line-height:1;display:block;
+  line-height:1;display:block;color:var(--cream);
 }
 .cd-sep{
   font-family:'Kanit',sans-serif;font-size:20px;font-weight:900;
@@ -808,9 +809,33 @@ button,select,.tab-btn,.sq-btn,.icat-btn,.yr-btn,.player-chip{
 }
 .cd-lbl{
   font-family:'IBM Plex Mono',monospace;font-size:8px;
-  letter-spacing:2px;opacity:.4;display:block;margin-top:2px;
+  letter-spacing:2px;opacity:.4;display:block;margin-top:2px;color:var(--cream);
 }
-body.dark .countdown-banner{background:var(--cream2)}
+/* Sound & Notif buttons sit ON the dark banner — always use cream text */
+.sound-toggle{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;
+  padding:5px 10px;background:rgba(245,240,228,.1);
+  border:1.5px solid rgba(245,240,228,.3);color:#f5f0e4;
+  cursor:pointer;transition:background .15s,border-color .15s;
+}
+.sound-toggle:hover{background:rgba(245,240,228,.2);border-color:rgba(245,240,228,.6)}
+.notif-btn{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;
+  padding:5px 10px;background:rgba(245,240,228,.1);
+  border:1.5px solid rgba(245,240,228,.3);color:#f5f0e4;
+  cursor:pointer;transition:background .15s,border-color .15s;
+}
+.notif-btn:hover{background:var(--red);color:#fff;border-color:var(--red)}
+/* Dark mode — banner becomes slightly lighter ink, text stays cream */
+body.dark .countdown-banner{background:#1a1710;border-bottom-color:var(--red)}
+body.dark .cd-num{color:#f5f0e4}
+body.dark .cd-match{color:#f5f0e4}
+body.dark .cd-label{color:#f5f0e4}
+body.dark .cd-lbl{color:#f5f0e4}
+body.dark .sound-toggle{color:#f5f0e4;border-color:rgba(245,240,228,.3);background:rgba(245,240,228,.08)}
+body.dark .notif-btn{color:#f5f0e4;border-color:rgba(245,240,228,.3);background:rgba(245,240,228,.08)}
 
 /* SHARE BUTTON */
 .share-btn{
@@ -827,28 +852,6 @@ body.dark .countdown-banner{background:var(--cream2)}
 
 /* SHARE CANVAS */
 #shareCanvas{display:none}
-
-/* SOUND TOGGLE */
-.sound-toggle{
-  font-family:'IBM Plex Mono',monospace;
-  font-size:10px;font-weight:600;letter-spacing:2px;
-  text-transform:uppercase;padding:5px 10px;
-  background:none;border:var(--border-thin);color:var(--ink);
-  cursor:pointer;transition:background .15s;
-}
-.sound-toggle:hover{background:var(--ink);color:var(--cream)}
-body.dark .sound-toggle{color:var(--ink)}
-
-/* NOTIF BTN */
-.notif-btn{
-  font-family:'IBM Plex Mono',monospace;
-  font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;
-  padding:5px 10px;background:none;
-  border:var(--border-thin);color:var(--ink);
-  cursor:pointer;transition:background .15s;
-}
-.notif-btn:hover{background:var(--red);color:#fff;border-color:var(--red)}
-body.dark .notif-btn{color:var(--ink)}
 
 /* INSTALL BANNER */
 .install-banner{
