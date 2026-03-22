@@ -4,6 +4,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SixthStump — IPL 2026</title>
+<meta name="description" content="SixthStump — IPL 2026 Win Predictor. Predict match winners, explore team squads, schedules and live season stats.">
+<meta name="theme-color" content="#f5f0e4" id="themeColorMeta">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="SixthStump">
+<meta name="mobile-web-app-capable" content="yes">
+<meta property="og:title" content="SixthStump — IPL 2026 Win Predictor">
+<meta property="og:description" content="Predict IPL 2026 match winners, explore squads, schedules and stats. Built by Vamsi Markandeya.">
+<meta property="og:type" content="website">
+<link rel="manifest" href="/manifest.json">
+<link rel="apple-touch-icon" href="https://documents.iplt20.com/ipl/assets/images/ipl-logo-new-old.png">
+
 <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
@@ -758,6 +770,112 @@ button,select,.tab-btn,.sq-btn,.icat-btn,.yr-btn,.player-chip{
   touch-action:manipulation;
 }
 
+
+/* COUNTDOWN BANNER */
+.countdown-banner{
+  background:var(--ink);color:var(--cream);
+  padding:10px 20px;
+  display:flex;align-items:center;justify-content:space-between;
+  border-bottom:3px solid var(--red);
+  flex-wrap:wrap;gap:8px;
+  position:relative;z-index:10;
+}
+.cd-label{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:10px;letter-spacing:3px;text-transform:uppercase;
+  opacity:.5;margin-bottom:2px;
+}
+.cd-match{
+  font-family:'Kanit',sans-serif;
+  font-size:14px;font-weight:800;letter-spacing:1px;text-transform:uppercase;
+}
+.cd-timer{
+  display:flex;gap:0;align-items:center;
+}
+.cd-unit{
+  text-align:center;padding:6px 10px;
+  border:1.5px solid rgba(245,240,228,.2);
+  border-right:none;
+}
+.cd-unit:last-child{border-right:1.5px solid rgba(245,240,228,.2)}
+.cd-num{
+  font-family:'Kanit',sans-serif;font-size:22px;font-weight:900;
+  line-height:1;display:block;
+}
+.cd-sep{
+  font-family:'Kanit',sans-serif;font-size:20px;font-weight:900;
+  color:var(--red);padding:0 4px;
+}
+.cd-lbl{
+  font-family:'IBM Plex Mono',monospace;font-size:8px;
+  letter-spacing:2px;opacity:.4;display:block;margin-top:2px;
+}
+body.dark .countdown-banner{background:var(--cream2)}
+
+/* SHARE BUTTON */
+.share-btn{
+  display:none;
+  font-family:'Kanit',sans-serif;font-size:13px;font-weight:900;
+  letter-spacing:2px;text-transform:uppercase;
+  padding:12px 20px;background:var(--ink);color:var(--cream);
+  border:var(--border);box-shadow:var(--shadow);
+  cursor:pointer;transition:transform .1s,box-shadow .1s;
+  margin-top:16px;width:100%;
+}
+.share-btn:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--red)}
+.share-btn.visible{display:block}
+
+/* SHARE CANVAS */
+#shareCanvas{display:none}
+
+/* SOUND TOGGLE */
+.sound-toggle{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:10px;font-weight:600;letter-spacing:2px;
+  text-transform:uppercase;padding:5px 10px;
+  background:none;border:var(--border-thin);color:var(--ink);
+  cursor:pointer;transition:background .15s;
+}
+.sound-toggle:hover{background:var(--ink);color:var(--cream)}
+body.dark .sound-toggle{color:var(--ink)}
+
+/* NOTIF BTN */
+.notif-btn{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;
+  padding:5px 10px;background:none;
+  border:var(--border-thin);color:var(--ink);
+  cursor:pointer;transition:background .15s;
+}
+.notif-btn:hover{background:var(--red);color:#fff;border-color:var(--red)}
+body.dark .notif-btn{color:var(--ink)}
+
+/* INSTALL BANNER */
+.install-banner{
+  display:none;
+  background:var(--red);color:#fff;
+  padding:10px 16px;
+  align-items:center;justify-content:space-between;
+  gap:12px;border-bottom:var(--border);
+  flex-wrap:wrap;
+}
+.install-banner.show{display:flex}
+.install-banner-txt{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1px}
+.install-banner-btns{display:flex;gap:8px}
+.install-yes{
+  font-family:'Kanit',sans-serif;font-size:12px;font-weight:900;
+  letter-spacing:2px;padding:6px 14px;
+  background:#fff;color:var(--red);border:none;cursor:pointer;
+}
+.install-no{
+  font-family:'IBM Plex Mono',monospace;font-size:10px;
+  background:none;border:1px solid rgba(255,255,255,.4);
+  color:#fff;padding:6px 10px;cursor:pointer;
+}
+@media(max-width:768px){
+  .cd-num{font-size:18px}
+  .countdown-banner{padding:8px 12px}
+}
 /* ── MOBILE RESPONSIVE ─────────────────────── */
 @media(max-width:768px){
   /* TOUCH TARGETS — 44px min only on mobile */
@@ -923,6 +1041,15 @@ button,select,.tab-btn,.sq-btn,.icat-btn,.yr-btn,.player-chip{
 
 <div class="cfl" id="cfl"></div>
 
+<!-- INSTALL BANNER -->
+<div class="install-banner" id="installBanner">
+  <div class="install-banner-txt">&#x1F3CF; Add SixthStump to your home screen for the full app experience</div>
+  <div class="install-banner-btns">
+    <button class="install-yes" id="installBtn">Install App</button>
+    <button class="install-no" onclick="document.getElementById('installBanner').classList.remove('show')">Not now</button>
+  </div>
+</div>
+
 <!-- MASTHEAD -->
 <div class="masthead">
   <div class="masthead-top wrap">
@@ -940,6 +1067,28 @@ button,select,.tab-btn,.sq-btn,.icat-btn,.yr-btn,.player-chip{
     <div class="masthead-rule-txt" id="tickerTop">TOURNAMENT BEGINS 28 MARCH 2026 · RCB vs SRH · BENGALURU · 84 MATCHES · 10 TEAMS · 65 DAYS OF CRICKET</div>
     <div class="masthead-rule-center">◆ SIXTHSTUMP ◆</div>
     <div class="masthead-rule-txt" style="text-align:right;direction:rtl" id="tickerTop2">CAMERON GREEN ₹25.2CR RECORD · RCB DEFENDING CHAMPIONS · JADEJA-SAMSON MEGASWAP</div>
+  </div>
+</div>
+
+
+<!-- COUNTDOWN BANNER -->
+<div class="countdown-banner" id="countdownBanner">
+  <div>
+    <div class="cd-label">Next IPL Match</div>
+    <div class="cd-match" id="cdMatch">Loading…</div>
+  </div>
+  <div class="cd-timer">
+    <div class="cd-unit"><span class="cd-num" id="cdD">00</span><span class="cd-lbl">Days</span></div>
+    <span class="cd-sep">:</span>
+    <div class="cd-unit"><span class="cd-num" id="cdH">00</span><span class="cd-lbl">Hrs</span></div>
+    <span class="cd-sep">:</span>
+    <div class="cd-unit"><span class="cd-num" id="cdM">00</span><span class="cd-lbl">Min</span></div>
+    <span class="cd-sep">:</span>
+    <div class="cd-unit"><span class="cd-num" id="cdS">00</span><span class="cd-lbl">Sec</span></div>
+  </div>
+  <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">
+    <button class="sound-toggle" id="soundToggle" onclick="toggleSound()" title="Toggle sound effects">🔔 Sound ON</button>
+    <button class="notif-btn" id="notifBtn" onclick="requestNotif()">🔔 Notify Me</button>
   </div>
 </div>
 
@@ -1113,6 +1262,8 @@ button,select,.tab-btn,.sq-btn,.icat-btn,.yr-btn,.player-chip{
         </div>
       </div>
       <div class="insight-box"><span class="insight-lbl">Analysis</span><span id="insight">—</span></div>
+      <button class="share-btn" id="shareBtn" onclick="shareResult()">&#x2197; Share This Prediction</button>
+      <canvas id="shareCanvas" width="800" height="420" style="display:none"></canvas>
     </div>
   </div>
 
@@ -2146,6 +2297,410 @@ function toggleTheme(){
 
 
 
+
+
+// ════════════════════════════════════════════
+// 1. COUNTDOWN TIMER TO NEXT MATCH
+// ════════════════════════════════════════════
+const MATCH_DATES = [
+  {n:1, dt:"2026-03-28T19:30:00+05:30", t1:"RCB", t2:"SRH"},
+  {n:2, dt:"2026-03-29T19:30:00+05:30", t1:"MI",  t2:"KKR"},
+  {n:3, dt:"2026-03-30T19:30:00+05:30", t1:"RR",  t2:"CSK"},
+  {n:4, dt:"2026-03-31T19:30:00+05:30", t1:"PBKS",t2:"GT"},
+  {n:5, dt:"2026-04-01T19:30:00+05:30", t1:"LSG", t2:"DC"},
+  {n:6, dt:"2026-04-02T19:30:00+05:30", t1:"KKR", t2:"SRH"},
+  {n:7, dt:"2026-04-03T19:30:00+05:30", t1:"CSK", t2:"PBKS"},
+  {n:8, dt:"2026-04-04T15:30:00+05:30", t1:"DC",  t2:"MI"},
+  {n:9, dt:"2026-04-04T19:30:00+05:30", t1:"GT",  t2:"RR"},
+  {n:10,dt:"2026-04-05T15:30:00+05:30", t1:"SRH", t2:"LSG"},
+  {n:11,dt:"2026-04-05T19:30:00+05:30", t1:"RCB", t2:"MI"},
+  {n:12,dt:"2026-04-06T19:30:00+05:30", t1:"CSK", t2:"RCB"},
+  {n:13,dt:"2026-04-07T19:30:00+05:30", t1:"KKR", t2:"GT"},
+  {n:14,dt:"2026-04-08T19:30:00+05:30", t1:"PBKS",t2:"RR"},
+  {n:15,dt:"2026-04-09T19:30:00+05:30", t1:"DC",  t2:"SRH"},
+  {n:16,dt:"2026-04-10T19:30:00+05:30", t1:"LSG", t2:"RCB"},
+  {n:17,dt:"2026-04-11T15:30:00+05:30", t1:"MI",  t2:"CSK"},
+  {n:18,dt:"2026-04-11T19:30:00+05:30", t1:"GT",  t2:"DC"},
+  {n:19,dt:"2026-04-12T15:30:00+05:30", t1:"RR",  t2:"KKR"},
+  {n:20,dt:"2026-04-12T19:30:00+05:30", t1:"SRH", t2:"PBKS"},
+];
+
+function getNextMatch() {
+  const now = Date.now();
+  return MATCH_DATES.find(m => new Date(m.dt).getTime() > now) || null;
+}
+
+function updateCountdown() {
+  const match = getNextMatch();
+  const banner = document.getElementById('countdownBanner');
+  const cdMatch = document.getElementById('cdMatch');
+  if (!match) {
+    if (cdMatch) cdMatch.textContent = 'IPL 2026 Season Complete';
+    ['cdD','cdH','cdM','cdS'].forEach(id => { const el=document.getElementById(id); if(el) el.textContent='00'; });
+    return;
+  }
+  const t1 = T[match.t1], t2 = T[match.t2];
+  if (cdMatch) cdMatch.textContent = `Match #${match.n}: ${match.t1} vs ${match.t2}`;
+
+  const diff = new Date(match.dt).getTime() - Date.now();
+  if (diff <= 0) {
+    updateCountdown(); return;
+  }
+  const d = Math.floor(diff / 86400000);
+  const h = Math.floor((diff % 86400000) / 3600000);
+  const m = Math.floor((diff % 3600000) / 60000);
+  const s = Math.floor((diff % 60000) / 1000);
+
+  const pad = n => String(n).padStart(2,'0');
+  const el = id => document.getElementById(id);
+  if(el('cdD')) el('cdD').textContent = pad(d);
+  if(el('cdH')) el('cdH').textContent = pad(h);
+  if(el('cdM')) el('cdM').textContent = pad(m);
+  if(el('cdS')) el('cdS').textContent = pad(s);
+
+  // Check if match is in 30 mins — fire notification
+  if (diff < 1800000 && diff > 1770000) {
+    sendMatchNotification(match);
+  }
+}
+
+setInterval(updateCountdown, 1000);
+updateCountdown();
+
+// ════════════════════════════════════════════
+// 2. SOUND EFFECTS
+// ════════════════════════════════════════════
+let soundEnabled = localStorage.getItem('sixthstump-sound') !== 'off';
+
+function toggleSound() {
+  soundEnabled = !soundEnabled;
+  localStorage.setItem('sixthstump-sound', soundEnabled ? 'on' : 'off');
+  const btn = document.getElementById('soundToggle');
+  if (btn) btn.textContent = soundEnabled ? '\uD83D\uDD14 Sound ON' : '\uD83D\uDD15 Sound OFF';
+}
+
+(function initSoundBtn(){
+  const btn = document.getElementById('soundToggle');
+  if (btn) btn.textContent = soundEnabled ? '\uD83D\uDD14 Sound ON' : '\uD83D\uDD15 Sound OFF';
+})();
+
+function playSound(type) {
+  if (!soundEnabled) return;
+  const ctx = new (window.AudioContext || window.webkitAudioContext)();
+
+  if (type === 'crowd') {
+    // Crowd roar — multiple oscillators sweep up
+    for (let i = 0; i < 6; i++) {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain); gain.connect(ctx.destination);
+      osc.frequency.setValueAtTime(200 + i * 80, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(800 + i * 120, ctx.currentTime + 0.8);
+      gain.gain.setValueAtTime(0.06, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 1.2);
+      osc.type = 'sawtooth';
+      osc.start(ctx.currentTime + i * 0.05);
+      osc.stop(ctx.currentTime + 1.4);
+    }
+  }
+
+  if (type === 'bat') {
+    // Bat hitting ball — sharp crack
+    const buf = ctx.createBuffer(1, ctx.sampleRate * 0.15, ctx.sampleRate);
+    const data = buf.getChannelData(0);
+    for (let i = 0; i < data.length; i++) {
+      data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (ctx.sampleRate * 0.02));
+    }
+    const src = ctx.createBufferSource();
+    const gain = ctx.createGain();
+    src.buffer = buf; src.connect(gain); gain.connect(ctx.destination);
+    gain.gain.setValueAtTime(0.8, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.15);
+    src.start(ctx.currentTime);
+
+    // Add thump
+    const osc = ctx.createOscillator();
+    const g2  = ctx.createGain();
+    osc.connect(g2); g2.connect(ctx.destination);
+    osc.frequency.setValueAtTime(180, ctx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(60, ctx.currentTime + 0.1);
+    g2.gain.setValueAtTime(0.4, ctx.currentTime);
+    g2.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.12);
+    osc.type = 'sine'; osc.start(ctx.currentTime); osc.stop(ctx.currentTime + 0.15);
+  }
+
+  if (type === 'wicket') {
+    // Stumps rattling
+    for (let i = 0; i < 3; i++) {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain); gain.connect(ctx.destination);
+      osc.frequency.setValueAtTime(300 + i * 150, ctx.currentTime + i * 0.05);
+      gain.gain.setValueAtTime(0.15, ctx.currentTime + i * 0.05);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3 + i * 0.05);
+      osc.type = 'square'; osc.start(ctx.currentTime + i * 0.05); osc.stop(ctx.currentTime + 0.4);
+    }
+  }
+
+  if (type === 'countdown') {
+    // Tick sound
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain); gain.connect(ctx.destination);
+    osc.frequency.value = 880;
+    gain.gain.setValueAtTime(0.1, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.05);
+    osc.type = 'sine'; osc.start(ctx.currentTime); osc.stop(ctx.currentTime + 0.06);
+  }
+}
+
+// Hook sounds into predict result
+const _origShowResult = showResult;
+showResult = function(k1, k2) {
+  playSound('bat');
+  _origShowResult(k1, k2);
+  setTimeout(() => playSound('crowd'), 400);
+  setTimeout(() => {
+    const shareBtn = document.getElementById('shareBtn');
+    if (shareBtn) shareBtn.classList.add('visible');
+  }, 600);
+};
+
+// ════════════════════════════════════════════
+// 3. SHARE PREDICTION AS IMAGE
+// ════════════════════════════════════════════
+function shareResult() {
+  const canvas = document.getElementById('shareCanvas');
+  const ctx    = canvas.getContext('2d');
+  const W = 800, H = 420;
+  ctx.clearRect(0, 0, W, H);
+
+  const k1 = document.getElementById('t1').value;
+  const k2 = document.getElementById('t2').value;
+  if (!k1 || !k2) return;
+  const t1 = T[k1], t2 = T[k2];
+  const pct1 = parseInt(document.getElementById('pp1').textContent);
+  const pct2 = parseInt(document.getElementById('pp2').textContent);
+  const winner = pct1 >= pct2 ? t1 : t2;
+  const winPct = Math.max(pct1, pct2);
+  const isDark = document.body.classList.contains('dark');
+
+  // Background
+  ctx.fillStyle = isDark ? '#111008' : '#f5f0e4';
+  ctx.fillRect(0, 0, W, H);
+
+  // Grid lines
+  ctx.strokeStyle = isDark ? 'rgba(245,240,228,0.05)' : 'rgba(15,14,10,0.06)';
+  ctx.lineWidth = 1;
+  for (let x = 0; x < W; x += 40) { ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,H); ctx.stroke(); }
+  for (let y = 0; y < H; y += 40) { ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y); ctx.stroke(); }
+
+  // Top red bar
+  ctx.fillStyle = '#c8371a';
+  ctx.fillRect(0, 0, W, 8);
+
+  // SIXTHSTUMP wordmark
+  const ink = isDark ? '#f5f0e4' : '#0f0e0a';
+  ctx.fillStyle = ink;
+  ctx.font = 'bold 14px monospace';
+  ctx.fillText('SIXTH', 28, 42);
+  ctx.fillStyle = '#c8371a';
+  ctx.fillText('STUMP', 28 + ctx.measureText('SIXTH').width + 4, 42);
+  ctx.fillStyle = ink;
+  ctx.font = '11px monospace';
+  ctx.fillStyle = isDark ? 'rgba(245,240,228,0.4)' : 'rgba(15,14,10,0.4)';
+  ctx.fillText('IPL 2026 WIN PREDICTOR', 28, 60);
+
+  // Winner label
+  ctx.fillStyle = '#c8371a';
+  ctx.font = 'bold 12px monospace';
+  ctx.fillText('PREDICTED WINNER', W/2 - 70, 95);
+
+  // Winner name
+  ctx.fillStyle = winner.color;
+  ctx.font = '900 52px Kanit, sans-serif';
+  const wname = winner.name.toUpperCase();
+  const ww = ctx.measureText(wname).width;
+  ctx.fillText(wname, W/2 - ww/2, 162);
+
+  // Underline
+  ctx.strokeStyle = winner.color;
+  ctx.lineWidth = 4;
+  ctx.beginPath(); ctx.moveTo(W/2 - ww/2, 170); ctx.lineTo(W/2 + ww/2, 170); ctx.stroke();
+
+  // Win probability
+  ctx.fillStyle = ink;
+  ctx.font = '900 36px Kanit, sans-serif';
+  const probTxt = winPct + '% WIN PROBABILITY';
+  const pw = ctx.measureText(probTxt).width;
+  ctx.fillText(probTxt, W/2 - pw/2, 215);
+
+  // VS bar
+  const barY = 250, barH = 24, barX = 28, barW = W - 56;
+  ctx.fillStyle = isDark ? 'rgba(245,240,228,0.1)' : 'rgba(15,14,10,0.08)';
+  ctx.fillRect(barX, barY, barW, barH);
+  ctx.fillStyle = t1.color;
+  ctx.fillRect(barX, barY, barW * (pct1/100), barH);
+  ctx.fillStyle = t2.color;
+  ctx.fillRect(barX + barW * (pct1/100), barY, barW * (pct2/100), barH);
+
+  // Team labels below bar
+  ctx.fillStyle = t1.color;
+  ctx.font = 'bold 16px Kanit, sans-serif';
+  ctx.fillText(k1 + ' ' + pct1 + '%', barX, barY + 48);
+  ctx.fillStyle = t2.color;
+  ctx.font = 'bold 16px Kanit, sans-serif';
+  const r2 = k2 + ' ' + pct2 + '%';
+  ctx.fillText(r2, barX + barW - ctx.measureText(r2).width, barY + 48);
+
+  // Bottom tagline
+  ctx.fillStyle = isDark ? 'rgba(245,240,228,0.3)' : 'rgba(15,14,10,0.3)';
+  ctx.font = '11px monospace';
+  ctx.fillText('sixthstump.vercel.app · Predict. Analyse. Win.', 28, H - 22);
+
+  // Border
+  ctx.strokeStyle = ink;
+  ctx.lineWidth = 3;
+  ctx.strokeRect(1.5, 1.5, W-3, H-3);
+
+  // Download / Share
+  canvas.toBlob(async (blob) => {
+    const file = new File([blob], 'sixthstump-prediction.png', {type:'image/png'});
+    if (navigator.canShare && navigator.canShare({files:[file]})) {
+      try {
+        await navigator.share({
+          title: `SixthStump — ${winner.name} wins!`,
+          text: `I predicted ${winner.name} will win with ${winPct}% probability. Check it on SixthStump!`,
+          files: [file]
+        });
+        return;
+      } catch(e) {}
+    }
+    // Fallback: download
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'sixthstump-prediction.png';
+    a.click();
+  });
+}
+
+// ════════════════════════════════════════════
+// 4. PUSH NOTIFICATIONS
+// ════════════════════════════════════════════
+async function requestNotif() {
+  const btn = document.getElementById('notifBtn');
+  if (!('Notification' in window)) {
+    alert('Push notifications are not supported in this browser.');
+    return;
+  }
+  if (Notification.permission === 'granted') {
+    btn.textContent = '\u2713 Notifications ON';
+    btn.style.background = 'var(--red)'; btn.style.color = '#fff';
+    btn.style.borderColor = 'var(--red)';
+    scheduleNotifications();
+    return;
+  }
+  const perm = await Notification.requestPermission();
+  if (perm === 'granted') {
+    btn.textContent = '\u2713 Notifications ON';
+    btn.style.background = 'var(--red)'; btn.style.color = '#fff';
+    btn.style.borderColor = 'var(--red)';
+    scheduleNotifications();
+    new Notification('SixthStump \uD83C\uDFCF', {
+      body: "You'll be notified 30 mins before each IPL match!",
+      icon: 'https://documents.iplt20.com/ipl/assets/images/ipl-logo-new-old.png'
+    });
+  } else {
+    btn.textContent = '\u2715 Blocked';
+  }
+}
+
+function sendMatchNotification(match) {
+  if (Notification.permission !== 'granted') return;
+  const t1 = T[match.t1], t2 = T[match.t2];
+  new Notification(`\uD83C\uDFCF Match Starting Soon!`, {
+    body: `${match.t1} vs ${match.t2} begins in 30 minutes! Head to SixthStump to predict the winner.`,
+    icon: t1 ? t1.logo : 'https://documents.iplt20.com/ipl/assets/images/ipl-logo-new-old.png',
+    badge: 'https://documents.iplt20.com/ipl/assets/images/ipl-logo-new-old.png',
+    tag: 'ipl-match-' + match.n,
+  });
+}
+
+function scheduleNotifications() {
+  // Check every minute if a match is 30 mins away
+  setInterval(() => {
+    const match = getNextMatch();
+    if (!match) return;
+    const diff = new Date(match.dt).getTime() - Date.now();
+    if (diff > 0 && diff < 1800000 && diff > 1740000) {
+      sendMatchNotification(match);
+    }
+  }, 60000);
+}
+
+// Init notif btn state
+(function initNotifBtn(){
+  const btn = document.getElementById('notifBtn');
+  if (!btn) return;
+  if (!('Notification' in window)) { btn.style.display='none'; return; }
+  if (Notification.permission === 'granted') {
+    btn.textContent = '\u2713 Notifications ON';
+    btn.style.background='var(--red)'; btn.style.color='#fff'; btn.style.borderColor='var(--red)';
+    scheduleNotifications();
+  }
+})();
+
+// ════════════════════════════════════════════
+// 5. PWA — INSTALL PROMPT
+// ════════════════════════════════════════════
+let deferredInstallPrompt = null;
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredInstallPrompt = e;
+  const banner = document.getElementById('installBanner');
+  if (banner && !localStorage.getItem('pwa-dismissed')) {
+    banner.classList.add('show');
+  }
+});
+
+const installBtn = document.getElementById('installBtn');
+if (installBtn) {
+  installBtn.addEventListener('click', async () => {
+    if (!deferredInstallPrompt) return;
+    deferredInstallPrompt.prompt();
+    const result = await deferredInstallPrompt.userChoice;
+    deferredInstallPrompt = null;
+    document.getElementById('installBanner').classList.remove('show');
+    if (result.outcome === 'accepted') {
+      localStorage.setItem('pwa-installed', 'true');
+    }
+  });
+}
+
+document.querySelectorAll('.install-no').forEach(btn => {
+  btn.addEventListener('click', () => {
+    localStorage.setItem('pwa-dismissed', 'true');
+  });
+});
+
+window.addEventListener('appinstalled', () => {
+  document.getElementById('installBanner').classList.remove('show');
+  if (soundEnabled) playSound('crowd');
+});
+
+// Dark mode also flips theme-color meta
+const _origToggle = toggleTheme;
+toggleTheme = function() {
+  _origToggle();
+  const meta = document.getElementById('themeColorMeta');
+  if (meta) meta.content = document.body.classList.contains('dark') ? '#111008' : '#f5f0e4';
+};
+
+// Register service worker
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js').catch(() => {});
+}
 
 </script>
 </body>
