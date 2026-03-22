@@ -1,0 +1,34 @@
+{
+  "name": "SixthStump — IPL 2026 Win Predictor",
+  "short_name": "SixthStump",
+  "description": "Predict IPL 2026 match winners. Full squads, schedule, stats and analysis.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f5f0e4",
+  "theme_color": "#c8371a",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "https://documents.iplt20.com/ipl/assets/images/ipl-logo-new-old.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://documents.iplt20.com/ipl/assets/images/ipl-logo-new-old.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["sports", "entertainment"],
+  "screenshots": [
+    {
+      "src": "/",
+      "sizes": "1280x800",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "SixthStump Win Predictor"
+    }
+  ]
+}
