@@ -879,6 +879,201 @@ body.dark .notif-btn{color:#f5f0e4;border-color:rgba(245,240,228,.3);background:
   .cd-num{font-size:18px}
   .countdown-banner{padding:8px 12px}
 }
+
+
+/* ── RECORDS LEADERBOARD ─────────────────── */
+.rec-lb-head{
+  display:flex;align-items:center;gap:12px;
+  padding:14px 20px;background:var(--ink);color:var(--cream);
+  border-bottom:3px solid var(--red);flex-wrap:wrap;
+}
+.rec-lb-icon{font-size:22px}
+.rec-lb-title{font-family:'Kanit',sans-serif;font-size:18px;font-weight:900;letter-spacing:1px;text-transform:uppercase;flex:1}
+.rec-lb-sub{font-family:'IBM Plex Mono',monospace;font-size:9px;opacity:.4;letter-spacing:2px}
+.rec-lb-row{
+  display:grid;grid-template-columns:40px 38px 1fr auto;
+  align-items:center;gap:12px;padding:12px 16px;
+  border-bottom:var(--border-thin);transition:background .15s;
+}
+.rec-lb-row:last-child{border-bottom:none}
+.rec-lb-row:hover{background:var(--cream2)}
+.rec-lb-top{background:rgba(200,55,26,.04)}
+body.dark .rec-lb-top{background:rgba(200,55,26,.08)}
+.rec-lb-rank{font-size:18px;text-align:center;width:40px}
+.rec-lb-logo{width:32px;height:32px;object-fit:contain}
+.rec-lb-name{font-size:14px;font-weight:800;text-transform:uppercase;letter-spacing:.5px}
+.rec-lb-detail{font-family:'IBM Plex Mono',monospace;font-size:10px;opacity:.45;margin-top:2px;letter-spacing:.5px}
+.rec-lb-bar-wrap{
+  height:4px;background:rgba(15,14,10,.08);
+  margin-top:6px;overflow:hidden;
+}
+body.dark .rec-lb-bar-wrap{background:rgba(245,240,228,.1)}
+.rec-lb-bar{height:100%;transition:width .6s cubic-bezier(.34,1.56,.64,1)}
+.rec-lb-val{
+  font-family:'Kanit',sans-serif;font-size:24px;font-weight:900;
+  letter-spacing:-1px;text-align:right;min-width:70px;
+}
+@media(max-width:768px){
+  .rec-lb-row{grid-template-columns:32px 28px 1fr auto;gap:8px;padding:10px 12px}
+  .rec-lb-logo{width:24px;height:24px}
+  .rec-lb-val{font-size:18px;min-width:50px}
+  .rec-lb-name{font-size:13px}
+}
+/* ── PLAYER COMPARE ──────────────────────── */
+.compare-selectors{
+  display:grid;grid-template-columns:1fr 60px 1fr;
+  gap:0;border:var(--border);box-shadow:var(--shadow-lg);
+  margin-bottom:20px;
+}
+.cmp-selector{padding:20px}
+.cmp-selector-label{
+  font-family:'IBM Plex Mono',monospace;font-size:10px;
+  font-weight:600;letter-spacing:3px;text-transform:uppercase;
+  opacity:.5;margin-bottom:10px;
+}
+.cmp-vs-col{
+  background:var(--ink);color:var(--cream);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Kanit',sans-serif;font-size:20px;font-weight:900;
+  letter-spacing:3px;border-left:var(--border-thin);border-right:var(--border-thin);
+}
+.cmp-result{border:var(--border);box-shadow:var(--shadow-lg)}
+.cmp-header{
+  display:grid;grid-template-columns:1fr auto 1fr;
+  background:var(--ink);color:var(--cream);border-bottom:var(--border);
+}
+.cmp-player-head{padding:18px 20px}
+.cmp-player-name{font-family:'Kanit',sans-serif;font-size:18px;font-weight:900;letter-spacing:1px;text-transform:uppercase}
+.cmp-player-team{font-family:'IBM Plex Mono',monospace;font-size:10px;opacity:.5;margin-top:3px;letter-spacing:2px}
+.cmp-head-mid{
+  padding:18px 16px;background:var(--red);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Kanit',sans-serif;font-size:13px;font-weight:900;letter-spacing:3px;
+}
+.cmp-row{
+  display:grid;grid-template-columns:1fr auto 1fr;
+  border-bottom:var(--border-thin);
+  transition:background .15s;
+}
+.cmp-row:last-child{border-bottom:none}
+.cmp-row:hover{background:var(--cream2)}
+.cmp-val{
+  padding:12px 16px;
+  font-family:'Kanit',sans-serif;font-size:18px;font-weight:900;
+  display:flex;align-items:center;
+}
+.cmp-val.left{justify-content:flex-start}
+.cmp-val.right{justify-content:flex-end}
+.cmp-val.winner{color:var(--red)}
+.cmp-stat-name{
+  padding:12px 16px;
+  font-family:'IBM Plex Mono',monospace;font-size:10px;
+  letter-spacing:2px;text-transform:uppercase;opacity:.45;
+  background:var(--cream2);text-align:center;
+  display:flex;align-items:center;justify-content:center;
+  border-left:var(--border-thin);border-right:var(--border-thin);
+  min-width:110px;
+}
+.cmp-section-head{
+  background:var(--ink);color:var(--cream);
+  padding:8px 16px;
+  font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:600;
+  letter-spacing:4px;text-transform:uppercase;opacity:.6;
+}
+.cmp-no-stats{
+  padding:32px;text-align:center;border-top:var(--border-thin);
+  font-family:'IBM Plex Mono',monospace;font-size:12px;opacity:.4;font-style:italic;
+}
+
+/* ── IPL RECORDS ─────────────────────────── */
+.records-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:0;
+  border:var(--border);box-shadow:var(--shadow-lg);
+  margin-bottom:24px;
+}
+.rec-card{border-right:var(--border-thin);border-bottom:var(--border-thin)}
+.rec-card:nth-child(even){border-right:none}
+.rec-head{
+  background:var(--ink);color:var(--cream);
+  padding:10px 16px;border-bottom:var(--border-thin);
+  display:flex;align-items:center;gap:10px;
+}
+.rec-icon{font-size:18px}
+.rec-title{font-family:'Kanit',sans-serif;font-size:14px;font-weight:900;letter-spacing:2px;text-transform:uppercase}
+.rec-rows{}
+.rec-row{
+  display:grid;grid-template-columns:26px 1fr auto;
+  align-items:center;gap:10px;padding:10px 14px;
+  border-bottom:1px solid rgba(15,14,10,.06);transition:background .15s;
+}
+body.dark .rec-row{border-bottom-color:rgba(245,240,228,.06)}
+.rec-row:last-child{border-bottom:none}
+.rec-row:hover{background:var(--cream2)}
+.rec-rank-n{font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;opacity:.3;text-align:center}
+.rec-rank-n.g{opacity:1;color:var(--gold)}
+.rec-rank-n.s{opacity:1;color:#888}
+.rec-rank-n.b{opacity:1;color:#a05a20}
+.rec-name{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.5px}
+.rec-team{font-family:'IBM Plex Mono',monospace;font-size:9px;opacity:.4;margin-top:1px;letter-spacing:1px}
+.rec-val{font-family:'Kanit',sans-serif;font-size:20px;font-weight:900;color:var(--red);text-align:right}
+.rec-extra{font-family:'IBM Plex Mono',monospace;font-size:9px;opacity:.4;text-align:right;margin-top:1px}
+
+/* ── HALL OF FAME ────────────────────────── */
+.hof-year-row{
+  display:grid;grid-template-columns:80px 1fr 1fr;
+  align-items:stretch;gap:0;
+  border-bottom:var(--border-thin);
+  transition:background .15s;
+}
+.hof-year-row:last-child{border-bottom:none}
+.hof-year-row:hover{background:var(--cream2)}
+.hof-year{
+  padding:14px 16px;background:var(--ink);color:var(--cream);
+  font-family:'Kanit',sans-serif;font-size:18px;font-weight:900;
+  display:flex;align-items:center;justify-content:center;
+  letter-spacing:1px;border-right:var(--border);
+}
+.hof-cap{padding:12px 16px;border-right:var(--border-thin)}
+.hof-cap:last-child{border-right:none}
+.hof-cap-label{
+  font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:600;
+  letter-spacing:3px;text-transform:uppercase;margin-bottom:6px;
+}
+.hof-cap-label.orange{color:#f26522}
+.hof-cap-label.purple{color:#6a0dad}
+.hof-player{font-size:14px;font-weight:800;text-transform:uppercase;letter-spacing:.5px}
+.hof-detail{font-family:'IBM Plex Mono',monospace;font-size:10px;opacity:.5;margin-top:3px}
+.hof-wrap{border:var(--border);box-shadow:var(--shadow-lg)}
+.hof-header{
+  display:grid;grid-template-columns:80px 1fr 1fr;
+  background:var(--ink);color:var(--cream);
+  border-bottom:var(--border);
+}
+.hof-hcol{
+  padding:10px 16px;
+  font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:600;
+  letter-spacing:3px;text-transform:uppercase;
+  border-right:var(--border-thin);
+}
+.hof-hcol:last-child{border-right:none}
+.hof-champion-strip{
+  background:var(--red);color:#fff;
+  padding:6px 16px;
+  font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:600;
+  letter-spacing:3px;border-bottom:var(--border-thin);
+}
+
+@media(max-width:768px){
+  .compare-selectors{grid-template-columns:1fr}
+  .cmp-vs-col{height:36px;border-left:none;border-right:none;border-top:var(--border-thin);border-bottom:var(--border-thin)}
+  .cmp-result .cmp-row{grid-template-columns:1fr 80px 1fr}
+  .cmp-stat-name{min-width:70px;font-size:8px}
+  .records-grid{grid-template-columns:1fr}
+  .rec-card{border-right:none}
+  .hof-year-row{grid-template-columns:55px 1fr 1fr}
+  .hof-year{font-size:14px;padding:10px 8px}
+  .hof-header{grid-template-columns:55px 1fr 1fr}
+}
 /* ── MOBILE RESPONSIVE ─────────────────────── */
 @media(max-width:768px){
   /* TOUCH TARGETS — 44px min only on mobile */
@@ -1102,6 +1297,9 @@ body.dark .notif-btn{color:#f5f0e4;border-color:rgba(245,240,228,.3);background:
   <button class="tab-btn" onclick="switchTab('squads',this)">Squads</button>
   <button class="tab-btn" onclick="switchTab('standings',this)">Standings</button>
   <button class="tab-btn" onclick="switchTab('stats',this)">Season Stats</button>
+  <button class="tab-btn" onclick="switchTab('compare',this)">&#9878; Compare</button>
+  <button class="tab-btn" onclick="switchTab('records',this)">&#9733; Records</button>
+  <button class="tab-btn" onclick="switchTab('hof',this)">&#127942; Hall of Fame</button>
 </div>
 
 <div class="wrap" style="padding-top:24px">
@@ -1336,6 +1534,58 @@ body.dark .notif-btn{color:#f5f0e4;border-color:rgba(245,240,228,.3);background:
   <div class="sec-head" style="margin-top:32px"><div class="sec-head-label">Key Storylines</div><div class="sec-head-line"></div></div>
   <div class="storylines-wrap" id="storylines"></div>
 </div>
+
+<!-- ═══ PLAYER COMPARE ═══ -->
+<div class="tab-page" id="tab-compare">
+  <div class="hub-head">
+    <div class="hub-head-tag">Compare</div>
+    <div class="hub-head-title">Player vs Player</div>
+    <div class="hub-head-sub">Head-to-Head Stats</div>
+  </div>
+  <div class="compare-selectors">
+    <div class="cmp-selector">
+      <div class="cmp-selector-label">Player 1</div>
+      <select id="cmpTeam1" onchange="populatePlayers(1)">
+        <option value="">Select Team…</option>
+      </select>
+      <select id="cmpPlayer1" onchange="renderCompare()" style="margin-top:8px">
+        <option value="">Select Player…</option>
+      </select>
+    </div>
+    <div class="cmp-vs-col">VS</div>
+    <div class="cmp-selector">
+      <div class="cmp-selector-label">Player 2</div>
+      <select id="cmpTeam2" onchange="populatePlayers(2)">
+        <option value="">Select Team…</option>
+      </select>
+      <select id="cmpPlayer2" onchange="renderCompare()" style="margin-top:8px">
+        <option value="">Select Player…</option>
+      </select>
+    </div>
+  </div>
+  <div id="compareResult"></div>
+</div>
+
+<!-- ═══ IPL RECORDS ═══ -->
+<div class="tab-page" id="tab-records">
+  <div class="hub-head">
+    <div class="hub-head-tag">Records</div>
+    <div class="hub-head-title">IPL All-Time Records</div>
+    <div class="hub-head-sub">2008 – 2025</div>
+  </div>
+  <div id="recordsContent"></div>
+</div>
+
+<!-- ═══ HALL OF FAME ═══ -->
+<div class="tab-page" id="tab-hof">
+  <div class="hub-head">
+    <div class="hub-head-tag">HOF</div>
+    <div class="hub-head-title">Hall of Fame</div>
+    <div class="hub-head-sub">Orange &amp; Purple Cap Winners</div>
+  </div>
+  <div id="hofContent"></div>
+</div>
+
 
 </div><!-- /wrap -->
 
@@ -1888,10 +2138,13 @@ function switchTab(tab,btn){
   document.querySelectorAll('.tab-btn').forEach(b=>{b.classList.remove('active');b.classList.remove('active-red')});
   document.getElementById('tab-'+tab).classList.add('active');
   if(btn) btn.classList.add('active');
-  if(tab==='schedule'&&!document.getElementById('scheduleList').children.length) buildSchedule();
-  if(tab==='squads'&&!document.getElementById('squadCards').children.length) buildSquads();
-  if(tab==='standings'&&!document.getElementById('ptBody').children.length) buildStandings();
-  if(tab==='stats'&&!document.getElementById('statsGrid').children.length) buildStats();
+  if(tab==='schedule' &&!document.getElementById('scheduleList').children.length) buildSchedule();
+  if(tab==='squads'   &&!document.getElementById('squadCards').children.length)  buildSquads();
+  if(tab==='standings'&&!document.getElementById('ptBody').children.length)      buildStandings();
+  if(tab==='stats'    &&!document.getElementById('statsGrid').children.length)   buildStats();
+  if(tab==='records'  &&!document.getElementById('recordsContent').children.length) buildRecords();
+  if(tab==='hof'      &&!document.getElementById('hofContent').children.length)  buildHOF();
+  if(tab==='compare')  initCompareSelects();
 }
 
 // ════════════════════════════════════════════
@@ -2705,6 +2958,442 @@ toggleTheme = function() {
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('/sw.js').catch(() => {});
 }
+
+
+// ════════════════════════════════════════════
+// IPL RECORDS DATA
+// ════════════════════════════════════════════
+const IPL_RECORDS = {
+  batting: {
+    title:"Most Runs — All Time", icon:"🏏", unit:"runs",
+    cols:["Player","Team","Runs","Mat","Avg","SR"],
+    rows:[
+      {name:"Virat Kohli",      team:"RCB",  val:8661, mat:267, avg:39.6,  sr:131.1},
+      {name:"Shikhar Dhawan",   team:"DC",   val:6769, mat:222, avg:35.2,  sr:127.1},
+      {name:"Rohit Sharma",     team:"MI",   val:7046, mat:272, avg:30.5,  sr:130.9},
+      {name:"David Warner",     team:"SRH",  val:6565, mat:184, avg:40.5,  sr:139.8},
+      {name:"Suresh Raina",     team:"CSK",  val:5528, mat:205, avg:32.5,  sr:136.7},
+      {name:"MS Dhoni",         team:"CSK",  val:5273, mat:264, avg:39.4,  sr:137.7},
+      {name:"KL Rahul",         team:"LSG",  val:5077, mat:147, avg:47.4,  sr:136.1},
+      {name:"AB de Villiers",   team:"RCB",  val:5162, mat:184, avg:39.7,  sr:151.7},
+      {name:"Ajinkya Rahane",   team:"KKR",  val:5032, mat:170, avg:31.8,  sr:127.8},
+      {name:"Chris Gayle",      team:"RCB",  val:4965, mat:142, avg:39.7,  sr:148.9},
+    ]
+  },
+  bowling: {
+    title:"Most Wickets — All Time", icon:"🎯", unit:"wkts",
+    cols:["Player","Team","Wkts","Mat","Eco","Avg"],
+    rows:[
+      {name:"Yuzvendra Chahal",    team:"PBKS", val:221, mat:172, avg:22.4, eco:7.84},
+      {name:"Bhuvneshwar Kumar",   team:"SRH",  val:198, mat:184, avg:25.7, eco:7.39},
+      {name:"Piyush Chawla",       team:"MI",   val:192, mat:192, avg:29.8, eco:7.96},
+      {name:"Sunil Narine",        team:"KKR",  val:182, mat:181, avg:25.1, eco:6.67},
+      {name:"Ravichandran Ashwin", team:"CSK",  val:187, mat:218, avg:27.8, eco:7.64},
+      {name:"Dwayne Bravo",        team:"CSK",  val:183, mat:161, avg:24.2, eco:8.38},
+      {name:"Jasprit Bumrah",      team:"MI",   val:183, mat:134, avg:23.3, eco:7.40},
+      {name:"Amit Mishra",         team:"DC",   val:174, mat:162, avg:23.9, eco:7.35},
+      {name:"Ravindra Jadeja",     team:"CSK",  val:170, mat:248, avg:30.4, eco:7.63},
+      {name:"Lasith Malinga",      team:"MI",   val:170, mat:122, avg:19.8, eco:7.14},
+    ]
+  },
+  sixes: {
+    title:"Most Sixes — All Time", icon:"💥", unit:"sixes",
+    cols:["Player","Team","Sixes","Runs","Mat","SR"],
+    rows:[
+      {name:"Chris Gayle",       team:"RCB",  val:357, mat:142, runs:4965, sr:148.9},
+      {name:"AB de Villiers",    team:"RCB",  val:251, mat:184, runs:5162, sr:151.7},
+      {name:"Rohit Sharma",      team:"MI",   val:264, mat:272, runs:7046, sr:130.9},
+      {name:"MS Dhoni",          team:"CSK",  val:216, mat:264, runs:5273, sr:137.7},
+      {name:"Kieron Pollard",    team:"MI",   val:226, mat:189, runs:3412, sr:147.3},
+      {name:"Virat Kohli",       team:"RCB",  val:291, mat:267, runs:8661, sr:131.1},
+      {name:"Suresh Raina",      team:"CSK",  val:159, mat:205, runs:5528, sr:136.7},
+      {name:"David Warner",      team:"SRH",  val:212, mat:184, runs:6565, sr:139.8},
+      {name:"Hardik Pandya",     team:"MI",   val:178, mat:139, runs:2507, sr:148.4},
+      {name:"Heinrich Klaasen",  team:"SRH",  val:162, mat:82,  runs:2094, sr:163.7},
+    ]
+  },
+  highscore: {
+    title:"Highest Individual Scores", icon:"📈", unit:"",
+    cols:["Player","Team","Score","vs","Year"],
+    rows:[
+      {name:"Chris Gayle",       team:"RCB", val:"175*", vs:"PWI",  extra:"2013"},
+      {name:"Brendon McCullum",  team:"KKR", val:"158*", vs:"RCB",  extra:"2008"},
+      {name:"AB de Villiers",    team:"RCB", val:"133*", vs:"MI",   extra:"2015"},
+      {name:"Shane Watson",      team:"RR",  val:"128*", vs:"SRH",  extra:"2013"},
+      {name:"Rishabh Pant",      team:"DC",  val:"128*", vs:"SRH",  extra:"2018"},
+      {name:"KL Rahul",          team:"PBKS",val:"132*", vs:"RCB",  extra:"2020"},
+      {name:"Virat Kohli",       team:"RCB", val:"113*", vs:"GL",   extra:"2016"},
+      {name:"David Warner",      team:"SRH", val:"126",  vs:"MI",   extra:"2017"},
+      {name:"Yashasvi Jaiswal",  team:"RR",  val:"124*", vs:"MI",   extra:"2024"},
+      {name:"Jos Buttler",       team:"RR",  val:"124",  vs:"LSG",  extra:"2022"},
+    ]
+  },
+  bestbowl: {
+    title:"Best Bowling Figures", icon:"⚡", unit:"",
+    cols:["Player","Team","Figures","vs","Year"],
+    rows:[
+      {name:"Alzarri Joseph",    team:"MI",   val:"6/12",  vs:"SRH",  extra:"2019"},
+      {name:"Sohail Tanvir",     team:"RR",   val:"6/14",  vs:"CSK",  extra:"2008"},
+      {name:"Anrich Nortje",     team:"DC",   val:"5/7",   vs:"PBKS", extra:"2024"},
+      {name:"Lasith Malinga",    team:"MI",   val:"5/13",  vs:"DC",   extra:"2011"},
+      {name:"Jasprit Bumrah",    team:"MI",   val:"5/10",  vs:"RCB",  extra:"2015"},
+      {name:"Harshal Patel",     team:"RCB",  val:"5/27",  vs:"MI",   extra:"2021"},
+      {name:"Yuzvendra Chahal",  team:"RR",   val:"5/40",  vs:"KKR",  extra:"2022"},
+      {name:"Adam Zampa",        team:"MI",   val:"5/19",  vs:"KKR",  extra:"2018"},
+      {name:"Bhuvneshwar Kumar", team:"SRH",  val:"5/19",  vs:"KXIP", extra:"2017"},
+      {name:"Deepak Chahar",     team:"CSK",  val:"6/7",   vs:"BAN",  extra:"T20I 2019"},
+    ]
+  },
+  team_totals: {
+    title:"Highest Team Totals", icon:"🔥", unit:"",
+    cols:["Team","vs","Total","Venue","Year"],
+    rows:[
+      {name:"SRH",   team:"SRH", val:"287/3", vs:"RCB",  extra:"2024"},
+      {name:"SRH",   team:"SRH", val:"277/3", vs:"MI",   extra:"2024"},
+      {name:"RCB",   team:"RCB", val:"263/5", vs:"PWI",  extra:"2013"},
+      {name:"MI",    team:"MI",  val:"235/1", vs:"SRH",  extra:"2017"},
+      {name:"KXIP",  team:"PBKS",val:"231/4", vs:"RR",   extra:"2011"},
+      {name:"KKR",   team:"KKR", val:"232/2", vs:"GL",   extra:"2016"},
+      {name:"RCB",   team:"RCB", val:"227/3", vs:"GL",   extra:"2016"},
+      {name:"CSK",   team:"CSK", val:"223/3", vs:"RCB",  extra:"2010"},
+      {name:"RR",    team:"RR",  val:"217/5", vs:"KKR",  extra:"2019"},
+      {name:"DC",    team:"DC",  val:"213/3", vs:"SRH",  extra:"2012"},
+    ]
+  },
+  titles: {
+    title:"Most IPL Titles", icon:"🏆", unit:"titles",
+    cols:["Team","Titles","Years","Finals"],
+    rows:[
+      {name:"Mumbai Indians",              team:"MI",  val:5, mat:10, extra:"2013·2015·2017·2019·2020"},
+      {name:"Chennai Super Kings",         team:"CSK", val:5, mat:10, extra:"2010·2011·2018·2021·2023"},
+      {name:"Kolkata Knight Riders",       team:"KKR", val:3, mat:6,  extra:"2012·2014·2024"},
+      {name:"Gujarat Titans",              team:"GT",  val:2, mat:2,  extra:"2022·2023"},
+      {name:"Royal Challengers Bengaluru", team:"RCB", val:1, mat:4,  extra:"2025"},
+      {name:"Rajasthan Royals",            team:"RR",  val:1, mat:2,  extra:"2008"},
+      {name:"Deccan Chargers",             team:"DC",  val:1, mat:1,  extra:"2009"},
+      {name:"Sunrisers Hyderabad",         team:"SRH", val:1, mat:3,  extra:"2016"},
+      {name:"Punjab Kings",                team:"PBKS",val:0, mat:2,  extra:"Finalist 2014·2025"},
+      {name:"Delhi Capitals",              team:"DC",  val:0, mat:1,  extra:"Finalist 2020"},
+    ]
+  },
+  economy: {
+    title:"Best Economy Rates (min. 50 wkts)", icon:"🔒", unit:"eco",
+    cols:["Player","Team","Eco","Wkts","Mat","Avg"],
+    rows:[
+      {name:"Rashid Khan",      team:"GT",   val:6.50, mat:138, wkts:142, avg:21.2},
+      {name:"Sunil Narine",     team:"KKR",  val:6.67, mat:181, wkts:182, avg:25.1},
+      {name:"Lasith Malinga",   team:"MI",   val:7.14, mat:122, wkts:170, avg:19.8},
+      {name:"Jasprit Bumrah",   team:"MI",   val:7.40, mat:134, wkts:183, avg:23.3},
+      {name:"Bhuvneshwar Kumar",team:"SRH",  val:7.39, mat:184, wkts:198, avg:25.7},
+      {name:"Amit Mishra",      team:"DC",   val:7.35, mat:162, wkts:174, avg:23.9},
+      {name:"Yuzvendra Chahal", team:"PBKS", val:7.84, mat:172, wkts:221, avg:22.4},
+      {name:"Ravindra Jadeja",  team:"CSK",  val:7.63, mat:248, wkts:170, avg:30.4},
+      {name:"Imran Tahir",      team:"CSK",  val:7.47, mat:62,  wkts:70,  avg:20.7},
+      {name:"Dwayne Bravo",     team:"CSK",  val:8.38, mat:161, wkts:183, avg:24.2},
+    ]
+  },
+};
+
+
+// ════════════════════════════════════════════
+// HALL OF FAME DATA (Orange & Purple Cap)
+// ════════════════════════════════════════════
+const HOF_DATA = [
+  {year:2025, champion:"RCB", orange:{p:"Sai Sudharsan",  t:"GT",  r:759, m:16}, purple:{p:"Prasidh Krishna",t:"GT",  w:25,m:16}},
+  {year:2024, champion:"KKR", orange:{p:"Virat Kohli",    t:"RCB", r:741, m:15}, purple:{p:"Harshal Patel",  t:"RCB", w:24,m:15}},
+  {year:2023, champion:"CSK", orange:{p:"Shubman Gill",   t:"GT",  r:890, m:17}, purple:{p:"Mohammad Shami", t:"GT",  w:28,m:17}},
+  {year:2022, champion:"GT",  orange:{p:"Jos Buttler",    t:"RR",  r:863, m:17}, purple:{p:"Yuzvendra Chahal",t:"RR",w:27,m:17}},
+  {year:2021, champion:"CSK", orange:{p:"Ruturaj Gaikwad",t:"CSK", r:635, m:16}, purple:{p:"Harshal Patel",  t:"RCB", w:32,m:15}},
+  {year:2020, champion:"MI",  orange:{p:"KL Rahul",       t:"KXIP",r:670, m:14}, purple:{p:"Kagiso Rabada",  t:"DC",  w:30,m:17}},
+  {year:2019, champion:"MI",  orange:{p:"David Warner",   t:"SRH", r:692, m:12}, purple:{p:"Imran Tahir",    t:"CSK", w:26,m:17}},
+  {year:2018, champion:"CSK", orange:{p:"Kane Williamson",t:"SRH", r:735, m:17}, purple:{p:"Andrew Tye",     t:"KXIP",w:24,m:14}},
+  {year:2017, champion:"MI",  orange:{p:"David Warner",   t:"SRH", r:641, m:14}, purple:{p:"Bhuvneshwar Kumar",t:"SRH",w:26,m:14}},
+  {year:2016, champion:"SRH", orange:{p:"Virat Kohli",    t:"RCB", r:973, m:16}, purple:{p:"Bhuvneshwar Kumar",t:"SRH",w:23,m:17}},
+  {year:2015, champion:"MI",  orange:{p:"David Warner",   t:"SRH", r:562, m:14}, purple:{p:"Dwayne Bravo",   t:"CSK", w:26,m:16}},
+  {year:2014, champion:"KKR", orange:{p:"Robin Uthappa",  t:"KKR", r:660, m:16}, purple:{p:"Mohit Sharma",   t:"CSK", w:23,m:16}},
+  {year:2013, champion:"MI",  orange:{p:"Michael Hussey", t:"CSK", r:733, m:16}, purple:{p:"Dwayne Bravo",   t:"CSK", w:32,m:18}},
+  {year:2012, champion:"KKR", orange:{p:"Chris Gayle",    t:"RCB", r:733, m:15}, purple:{p:"Morne Morkel",   t:"DC",  w:25,m:16}},
+  {year:2011, champion:"CSK", orange:{p:"Chris Gayle",    t:"RCB", r:608, m:12}, purple:{p:"Lasith Malinga", t:"MI",  w:28,m:16}},
+  {year:2010, champion:"CSK", orange:{p:"Sachin Tendulkar",t:"MI", r:618, m:15}, purple:{p:"Pragyan Ojha",   t:"DC",  w:21,m:16}},
+  {year:2009, champion:"DC",  orange:{p:"Matthew Hayden", t:"CSK", r:572, m:16}, purple:{p:"RP Singh",       t:"DC",  w:23,m:16}},
+  {year:2008, champion:"RR",  orange:{p:"Shaun Marsh",    t:"KXIP",r:616, m:11}, purple:{p:"Sohail Tanvir",  t:"RR",  w:22,m:11}},
+];
+
+// ════════════════════════════════════════════
+// BUILD RECORDS TAB
+// ════════════════════════════════════════════
+function buildRecords() {
+  const el = document.getElementById('recordsContent');
+  if (el.children.length) return;
+
+  // Category filter tabs
+  const cats = Object.keys(IPL_RECORDS);
+  const filterDiv = document.createElement('div');
+  filterDiv.className = 'istats-cats';
+  filterDiv.id = 'recCats';
+  cats.forEach((key, i) => {
+    const d = IPL_RECORDS[key];
+    const btn = document.createElement('button');
+    btn.className = 'icat-btn' + (i===0?' active':'');
+    btn.textContent = d.icon + ' ' + d.title.split('—')[0].trim();
+    btn.onclick = () => {
+      document.querySelectorAll('#recCats .icat-btn').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      renderRecordLeaderboard(key);
+    };
+    filterDiv.appendChild(btn);
+  });
+  el.appendChild(filterDiv);
+
+  // Leaderboard container
+  const lb = document.createElement('div');
+  lb.id = 'recLeaderboard';
+  lb.style.cssText = 'border:var(--border);border-top:none;box-shadow:var(--shadow-lg)';
+  el.appendChild(lb);
+
+  renderRecordLeaderboard(cats[0]);
+}
+
+function renderRecordLeaderboard(key) {
+  const cat = IPL_RECORDS[key];
+  const lb  = document.getElementById('recLeaderboard');
+  if (!lb) return;
+
+  // Find max for bar
+  const vals  = cat.rows.map(r => parseFloat(r.val) || 0);
+  const maxV  = Math.max(...vals);
+  const isBig = maxV > 100;
+
+  lb.innerHTML = `
+    <div class="rec-lb-head">
+      <span class="rec-lb-icon">${cat.icon}</span>
+      <span class="rec-lb-title">${cat.title}</span>
+      <span class="rec-lb-sub">IPL 2008–2025 · All-Time</span>
+    </div>
+    ${cat.rows.map((r, i) => {
+      const tData   = T[r.team];
+      const color   = tData ? tData.color : 'var(--red)';
+      const logo    = tData ? tData.logo  : '';
+      const numVal  = parseFloat(r.val) || 0;
+      const barPct  = maxV > 0 ? (numVal / maxV * 100) : 0;
+      const medal   = i===0?'🥇':i===1?'🥈':i===2?'🥉':'';
+      const rankStr = medal || `<span style="font-family:'IBM Plex Mono',monospace;font-size:12px;opacity:.4">#${i+1}</span>`;
+
+      // Sub details
+      let detail = '';
+      if (r.mat)   detail += `${r.mat} matches`;
+      if (r.avg)   detail += ` · Avg ${r.avg}`;
+      if (r.sr)    detail += ` · SR ${r.sr}`;
+      if (r.eco)   detail += ` · Eco ${r.eco}`;
+      if (r.wkts && key==='economy') detail = `${r.wkts} wkts · ${r.mat} matches`;
+      if (r.extra && (key==='highscore'||key==='bestbowl'||key==='team_totals')) detail = `vs ${r.vs||r.extra} · ${r.extra}`;
+      if (key==='titles') detail = r.extra;
+
+      return `<div class="rec-lb-row${i===0?' rec-lb-top':''}">
+        <div class="rec-lb-rank">${rankStr}</div>
+        <img class="rec-lb-logo" src="${logo}" onerror="this.style.visibility='hidden'" alt="${r.team}"/>
+        <div class="rec-lb-info">
+          <div class="rec-lb-name">${r.name}</div>
+          <div class="rec-lb-detail">${detail}</div>
+          <div class="rec-lb-bar-wrap">
+            <div class="rec-lb-bar" style="width:${barPct.toFixed(1)}%;background:${color}"></div>
+          </div>
+        </div>
+        <div class="rec-lb-val" style="color:${color}">${r.val}${cat.unit&&parseFloat(r.val)?'':''}</div>
+      </div>`;
+    }).join('')}`;
+}
+
+// ════════════════════════════════════════════
+// BUILD HALL OF FAME TAB
+// ════════════════════════════════════════════
+function buildHOF() {
+  const el = document.getElementById('hofContent');
+  if (el.children.length) return;
+
+  const wrap = document.createElement('div');
+  wrap.className = 'hof-wrap';
+
+  // Header
+  wrap.innerHTML = `<div class="hof-header">
+    <div class="hof-hcol">Season</div>
+    <div class="hof-hcol" style="color:#f5a623">&#127825; Orange Cap — Most Runs</div>
+    <div class="hof-hcol" style="color:#a855f7">&#128132; Purple Cap — Most Wickets</div>
+  </div>`;
+
+  HOF_DATA.forEach(d => {
+    const champT = T[d.champion];
+    const champColor = champT ? champT.color : '#c8371a';
+
+    // Champion strip
+    const strip = document.createElement('div');
+    strip.className = 'hof-champion-strip';
+    strip.style.background = champColor;
+    strip.innerHTML = `&#127942; ${d.year} CHAMPIONS: ${d.champion} — ${champT ? champT.name : d.champion}`;
+    wrap.appendChild(strip);
+
+    const row = document.createElement('div');
+    row.className = 'hof-year-row';
+    row.innerHTML = `
+      <div class="hof-year" style="background:${champColor}">${d.year}</div>
+      <div class="hof-cap">
+        <div class="hof-cap-label orange">&#127825; Orange Cap</div>
+        <div class="hof-player">${d.orange.p}</div>
+        <div class="hof-detail">${d.orange.t} · ${d.orange.r} runs in ${d.orange.m} matches</div>
+      </div>
+      <div class="hof-cap">
+        <div class="hof-cap-label purple">&#128132; Purple Cap</div>
+        <div class="hof-player">${d.purple.p}</div>
+        <div class="hof-detail">${d.purple.t} · ${d.purple.w} wickets in ${d.purple.m} matches</div>
+      </div>`;
+    wrap.appendChild(row);
+  });
+
+  el.appendChild(wrap);
+}
+
+// ════════════════════════════════════════════
+// BUILD PLAYER COMPARE TAB
+// ════════════════════════════════════════════
+function initCompareSelects() {
+  const sel1 = document.getElementById('cmpTeam1');
+  const sel2 = document.getElementById('cmpTeam2');
+  if (sel1.options.length > 1) return;
+
+  Object.keys(T).forEach(key => {
+    const t = T[key];
+    [sel1, sel2].forEach(sel => {
+      const opt = document.createElement('option');
+      opt.value = key;
+      opt.textContent = t.name;
+      sel.appendChild(opt);
+    });
+  });
+}
+
+function populatePlayers(n) {
+  const teamKey = document.getElementById('cmpTeam'+n).value;
+  const playerSel = document.getElementById('cmpPlayer'+n);
+  playerSel.innerHTML = '<option value="">Select Player…</option>';
+
+  if (!teamKey || !SQUADS[teamKey]) return;
+
+  SQUADS[teamKey].players.forEach(p => {
+    const opt = document.createElement('option');
+    opt.value = p.n;
+    opt.textContent = p.n;
+    playerSel.appendChild(opt);
+  });
+}
+
+function renderCompare() {
+  const p1name = document.getElementById('cmpPlayer1').value;
+  const p2name = document.getElementById('cmpPlayer2').value;
+  const t1key  = document.getElementById('cmpTeam1').value;
+  const t2key  = document.getElementById('cmpTeam2').value;
+  const res    = document.getElementById('compareResult');
+
+  if (!p1name || !p2name) { res.innerHTML = ''; return; }
+
+  const s1 = PSTATS[p1name];
+  const s2 = PSTATS[p2name];
+  const t1 = T[t1key], t2 = T[t2key];
+
+  if (!s1 && !s2) {
+    res.innerHTML = '<div class="cmp-no-stats">No career stats available for either player.</div>';
+    return;
+  }
+
+  // Build comparison rows
+  const batRows = [];
+  const bowlRows = [];
+
+  if (s1?.bat || s2?.bat) {
+    const defs = [
+      {lbl:'Matches',  k:'m'},
+      {lbl:'Runs',     k:'r'},
+      {lbl:'Average',  k:'avg'},
+      {lbl:'Strike Rate',k:'sr'},
+      {lbl:'High Score',k:'hs'},
+      {lbl:'Centuries',k:'h'},
+      {lbl:'Fifties',  k:'f'},
+      {lbl:'Sixes',    k:'s'},
+    ];
+    defs.forEach(d => {
+      const v1 = s1?.bat?.[d.k] ?? '—';
+      const v2 = s2?.bat?.[d.k] ?? '—';
+      const n1 = parseFloat(v1), n2 = parseFloat(v2);
+      const w1 = !isNaN(n1) && !isNaN(n2) && n1 > n2;
+      const w2 = !isNaN(n1) && !isNaN(n2) && n2 > n1;
+      batRows.push(`<div class="cmp-row">
+        <div class="cmp-val left ${w1?'winner':''}" style="${w1?`color:${t1?.color||'var(--red)'}`:''}">${v1}</div>
+        <div class="cmp-stat-name">${d.lbl}</div>
+        <div class="cmp-val right ${w2?'winner':''}" style="${w2?`color:${t2?.color||'var(--red)'}`:''}">${v2}</div>
+      </div>`);
+    });
+  }
+
+  if (s1?.bowl || s2?.bowl) {
+    const defs = [
+      {lbl:'Wickets', k:'wkts'},
+      {lbl:'Economy', k:'eco'},
+      {lbl:'Average', k:'avg'},
+      {lbl:'Best',    k:'bb'},
+      {lbl:'Matches', k:'m'},
+    ];
+    defs.forEach(d => {
+      const v1 = s1?.bowl?.[d.k] ?? '—';
+      const v2 = s2?.bowl?.[d.k] ?? '—';
+      const n1 = parseFloat(v1), n2 = parseFloat(v2);
+      // For economy & average, lower is better
+      const lowerBetter = d.k === 'eco' || d.k === 'avg';
+      const w1 = !isNaN(n1) && !isNaN(n2) && (lowerBetter ? n1 < n2 : n1 > n2);
+      const w2 = !isNaN(n1) && !isNaN(n2) && (lowerBetter ? n2 < n1 : n2 > n1);
+      bowlRows.push(`<div class="cmp-row">
+        <div class="cmp-val left ${w1?'winner':''}" style="${w1?`color:${t1?.color||'var(--red)'}`:''}">${v1}</div>
+        <div class="cmp-stat-name">${d.lbl}</div>
+        <div class="cmp-val right ${w2?'winner':''}" style="${w2?`color:${t2?.color||'var(--red)'}`:''}">${v2}</div>
+      </div>`);
+    });
+  }
+
+  // Debut & role
+  const metaRows = `<div class="cmp-row">
+    <div class="cmp-val left">${s1?.debut??'—'}</div>
+    <div class="cmp-stat-name">IPL Debut</div>
+    <div class="cmp-val right">${s2?.debut??'—'}</div>
+  </div>
+  <div class="cmp-row">
+    <div class="cmp-val left" style="font-size:13px">${s1?.role??'—'}</div>
+    <div class="cmp-stat-name">Role</div>
+    <div class="cmp-val right" style="font-size:13px">${s2?.role??'—'}</div>
+  </div>
+  <div class="cmp-row">
+    <div class="cmp-val left" style="font-size:13px">${t1?.titles??'—'}</div>
+    <div class="cmp-stat-name">IPL Titles</div>
+    <div class="cmp-val right" style="font-size:13px">${t2?.titles??'—'}</div>
+  </div>`;
+
+  res.innerHTML = `<div class="cmp-result">
+    <div class="cmp-header">
+      <div class="cmp-player-head">
+        <div class="cmp-player-name" style="color:${t1?.color||'var(--cream)'}">${p1name}</div>
+        <div class="cmp-player-team">${t1key} · ${s1?.nat??''} · IPL ${s1?.debut??''}</div>
+      </div>
+      <div class="cmp-head-mid">ALL-TIME IPL STATS</div>
+      <div class="cmp-player-head" style="text-align:right">
+        <div class="cmp-player-name" style="color:${t2?.color||'var(--cream)'}">${p2name}</div>
+        <div class="cmp-player-team">${t2key} · ${s2?.nat??''} · IPL ${s2?.debut??''}</div>
+      </div>
+    </div>
+    ${metaRows}
+    ${batRows.length ? `<div class="cmp-section-head">BATTING</div>${batRows.join('')}` : ''}
+    ${bowlRows.length ? `<div class="cmp-section-head">BOWLING</div>${bowlRows.join('')}` : ''}
+    ${!s1&&!s2?'':''}
+    ${(!s1||!s2)?`<div class="cmp-no-stats">Some stats unavailable — player may not have IPL career data yet.</div>`:''}
+  </div>`;
+}
+
 
 </script>
 </body>
