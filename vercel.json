@@ -1,3 +1,16 @@
 {
-  "version": 2
+  "version": 2,
+  "routes": [
+    {
+      "handle": "filesystem"
+    },
+    {
+      "src": "/api/live",
+      "dest": "/api/live.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ]
 }
