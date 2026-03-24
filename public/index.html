@@ -164,12 +164,28 @@ body.dark .toggle-pill{background:var(--gold);border-color:var(--gold)}
 
 /* RULE LINE */
 .masthead-rule{
-  border-top:1px solid rgba(244,238,216,.15);
+  border-top:1px solid rgba(59,130,246,.15);
   border-bottom:none;
-  display:flex;align-items:center;
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  align-items:center;
   padding:5px 20px;
   max-width:1020px;margin:0 auto;
-  gap:12px;overflow:hidden;
+  gap:8px;overflow:hidden;
+}
+.rule-left{
+  font-family:var(--mono);font-size:9px;
+  letter-spacing:2px;text-transform:uppercase;
+  opacity:.5;white-space:nowrap;overflow:hidden;
+  text-overflow:ellipsis;
+  display:flex;align-items:center;gap:6px;
+}
+.rule-right{
+  font-family:var(--mono);font-size:9px;
+  letter-spacing:2px;text-transform:uppercase;
+  opacity:.5;white-space:nowrap;overflow:hidden;
+  text-overflow:ellipsis;
+  display:flex;align-items:center;justify-content:flex-end;gap:6px;
 }
 .rule-ornament{color:#3B82F6;font-size:10px;flex-shrink:0}
 .rule-text{
@@ -180,7 +196,8 @@ body.dark .toggle-pill{background:var(--gold);border-color:var(--gold)}
 }
 .rule-center{
   font-family:var(--serif);font-size:11px;font-style:italic;
-  color:#3B82F6;flex-shrink:0;
+  color:#3B82F6;flex-shrink:0;white-space:nowrap;
+  text-align:center;
 }
 
 /* ── COUNTDOWN ─────────────────────────── */
@@ -923,56 +940,84 @@ body.dark .rec-lb-val{color:var(--gold)}
 /* ── RESPONSIVE ────────────────────────── */
 @media(max-width:768px){
   .wrap,.content{padding-left:14px;padding-right:14px}
+
+  /* MASTHEAD */
   .masthead-top{grid-template-columns:1fr auto;gap:8px;padding:10px 14px}
   .masthead-byline{display:none}
   .masthead-logo{font-size:clamp(22px,7vw,36px);text-align:left}
-  .masthead-right{flex-direction:column;align-items:flex-end;gap:4px}
+  .masthead-right{flex-direction:row;align-items:center;gap:6px}
   .masthead-sub{display:none}
-  .masthead-rule{padding:5px 14px}
-  .rule-text:last-of-type{display:none}
+  .masthead-rule{padding:6px 12px;margin:0 10px 10px}
+  .rule-right{display:none}
+  .rule-left{font-size:8px;letter-spacing:1px}
+  .rule-center{font-size:10px}
 
-  .countdown-inner{padding:8px 14px;gap:10px}
-  .cd-n{font-size:18px}
-  .cd-unit{padding:3px 7px}
+  /* COUNTDOWN */
+  .countdown-inner{padding:8px 14px;gap:8px;flex-wrap:nowrap}
+  .cd-info{flex:1;min-width:0}
+  .cd-match-name{font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .cd-n{font-size:16px}
+  .cd-unit{padding:3px 6px}
+  .cd-colon{font-size:16px}
+  .cd-btns{gap:4px}
+  .cd-action{font-size:8px;padding:5px 8px;letter-spacing:1px}
 
-  .tab-btn{font-size:9px;padding:10px 12px;letter-spacing:1px}
+  /* TABS */
+  .tab-btn{font-size:9px;padding:10px 10px;letter-spacing:1px}
 
-  .content{padding-top:20px}
+  /* CONTENT */
+  .content{padding-top:20px;padding-bottom:60px}
   .sec-head{flex-wrap:wrap;gap:8px}
   .sec-title{font-size:clamp(18px,5vw,26px)}
 
+  /* PREDICTOR */
   .predictor-grid{grid-template-columns:1fr}
   .vs-divider{height:36px;border-left:none;border-right:none;border-top:var(--border-g);border-bottom:var(--border-g)}
   .analysis-strip{grid-template-columns:1fr}
   .analysis-card{border-right:none;border-bottom:var(--border-g)}
   .analysis-card:last-child{border-bottom:none}
   .cond-grid{grid-template-columns:1fr 1fr !important}
-  .predict-btn{width:100%;font-size:16px;padding:15px}
+  .predict-btn{width:100%;font-size:18px !important;padding:16px !important}
+  .result-winner{font-size:clamp(22px,6vw,38px)}
   .result-bottom{grid-template-columns:1fr}
   .conf-wrap{border-left:none;padding-left:0;border-top:var(--border-g);padding-top:16px}
-  .prob-row{grid-template-columns:90px 1fr 48px}
+  .prob-row{grid-template-columns:auto 1fr 52px;gap:8px}
+  .factors-grid{grid-template-columns:1fr 1fr}
 
+  /* SCHEDULE */
   .match-row{grid-template-columns:72px 1fr auto 1fr}
   .match-cell.match-venue-cell{display:none}
   .match-tname{font-size:12px}
 
+  /* SQUADS */
   .squad-grid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr))}
+  .squad-top{gap:10px;padding:14px}
+  .sq-name{font-size:16px}
 
+  /* STANDINGS */
+  .pt-table th,.pt-table td{padding:8px 8px;font-size:11px}
+
+  /* SEASON STATS */
   .stats-grid{grid-template-columns:1fr 1fr}
   .istat-grid{grid-template-columns:1fr}
-  .istat-row{grid-template-columns:22px 1fr auto}
+  .istat-row{grid-template-columns:26px 1fr auto}
   .isub-txt{display:none}
   .storylines{grid-template-columns:1fr}
 
+  /* COMPARE */
   .compare-selectors{grid-template-columns:1fr}
   .cmp-vs-col{height:36px;border:none;border-top:var(--border-g);border-bottom:var(--border-g)}
   .cmp-stat-name{min-width:70px;font-size:8px}
+  .cmp-val{font-size:15px;padding:9px 10px}
 
+  /* RECORDS */
   .records-grid{grid-template-columns:1fr}
 
+  /* HOF */
   .hof-year-row,.hof-header{grid-template-columns:50px 1fr 1fr}
   .hof-year{font-size:13px;padding:10px 6px}
 
+  /* MODAL */
   .modal-overlay{align-items:flex-end;padding:0}
   .modal-box{
     max-height:90vh;width:100%;max-width:100%;
@@ -983,15 +1028,42 @@ body.dark .rec-lb-val{color:var(--gold)}
 }
 
 @media(max-width:420px){
-  .tab-btn{font-size:8px;padding:10px 10px}
+  /* MASTHEAD */
+  .masthead-top{padding:8px 12px}
+  .masthead-logo{font-size:clamp(20px,8vw,30px)}
+  .theme-btn span:last-child{display:none}
+  .masthead-rule{display:none}
+
+  /* TABS */
+  .tab-btn{font-size:8px;padding:10px 8px;letter-spacing:0.5px}
+
+  /* COUNTDOWN */
+  .cd-action{display:none}
+  .cd-match-name{font-size:11px}
+
+  /* CONDITIONS */
   .cond-grid{grid-template-columns:1fr 1fr !important}
   .cond-cell{padding:10px 12px !important}
   .cond-select{font-size:11px !important;padding:6px 8px !important}
   .cond-label{font-size:8px !important}
-  .stats-grid{grid-template-columns:1fr}
+
+  /* RESULT */
+  .result-winner{font-size:clamp(18px,6vw,28px)}
+  #wlogo{width:36px !important;height:36px !important;margin-right:8px !important}
+  .prob-row{grid-template-columns:auto 1fr 44px}
+  #plogo1,#plogo2{width:18px !important;height:18px !important}
   .factors-grid{grid-template-columns:1fr}
+
+  /* STATS */
+  .stats-grid{grid-template-columns:1fr}
   .squad-grid{grid-template-columns:1fr 1fr}
+
+  /* HOF */
   .hof-year-row,.hof-header{grid-template-columns:40px 1fr 1fr}
+
+  /* COMPARE */
+  .cmp-val{font-size:13px;padding:8px 8px}
+  .cmp-stat-name{min-width:60px}
 }
 .rec-cat-btn{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;padding:10px 16px;background:none;border:none;border-right:var(--border-g);color:var(--muted);cursor:pointer;white-space:nowrap;flex-shrink:0;min-height:44px;border-bottom:3px solid transparent;transition:color .15s}
 .rec-cat-btn:hover{color:var(--ink)}
@@ -1556,12 +1628,27 @@ body.dark .toggle-pill{background:#3B82F6}
   .masthead-rule{margin:0 8px 10px}
   .tab-nav{padding:0 8px;top:8px}
   .tab-nav-inner{border-radius:20px;padding:4px}
-  .tab-btn{padding:8px 12px !important;font-size:9px}
+  .tab-btn{padding:8px 10px !important;font-size:9px}
   .predictor-grid{grid-template-columns:1fr !important;gap:12px !important}
   .analysis-strip{grid-template-columns:1fr !important;gap:12px !important}
   .compare-selectors{gap:12px !important}
   .cmp-vs-col{align-self:auto;width:100%;height:40px;border-radius:var(--r-sm) !important}
   .stats-grid{gap:10px !important}
+  .result-wrap{margin:0}
+  .result-body{padding:18px}
+}
+
+@media(max-width:420px){
+  .countdown{margin:0 6px 8px}
+  .masthead-rule{display:none}
+  .tab-nav{padding:0 4px;top:6px}
+  .tab-nav-inner{border-radius:16px;padding:3px}
+  .tab-btn{padding:7px 7px !important;font-size:8px !important;letter-spacing:0.3px}
+  .content{padding:16px 10px 60px}
+  .result-body{padding:14px}
+  .prob-row{gap:6px}
+  .squad-grid{gap:8px}
+  .player-chip{padding:10px 10px}
 }
 
 /* ── ANALYSIS CARD INTERNALS ── */
@@ -1605,11 +1692,9 @@ body.dark .toggle-pill{background:#3B82F6}
     </div>
   </div>
   <div class="masthead-rule wrap">
-    <span class="rule-ornament">&#9670;</span>
-    <span class="rule-text">TATA IPL 2026 · 84 MATCHES · 10 TEAMS · MAR 28 – MAY 31</span>
+    <span class="rule-left"><span class="rule-ornament">&#9670;</span>TATA IPL 2026 · 84 MATCHES · 10 TEAMS · MAR 28 – MAY 31</span>
     <span class="rule-center">&#9670; SixthStump &#9670;</span>
-    <span class="rule-text" style="text-align:right;direction:rtl">RCB DEFENDING CHAMPIONS · 28 MARCH 2026</span>
-    <span class="rule-ornament">&#9670;</span>
+    <span class="rule-right">RCB DEFENDING CHAMPIONS · 28 MARCH 2026<span class="rule-ornament">&#9670;</span></span>
   </div>
 </header>
 
