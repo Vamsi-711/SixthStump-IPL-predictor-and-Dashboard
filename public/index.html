@@ -1791,23 +1791,23 @@ body.dark .toggle-pill{background:#3B82F6}
 
   <div id="loader" style="display:none;text-align:center;padding:20px;font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:2px">CALCULATING&hellip;</div>
   <div class="predict-wrap">
-    <button class="predict-btn" onclick="predict()">Predict the Winner &rarr;</button>
+    <button class="predict-btn" onclick="predict()" style="font-size:22px;padding:20px 72px;letter-spacing:1px;">Predict the Winner &rarr;</button>
   </div>
 
   <div id="rc" style="display:none"><div id="rp">
     <div class="result-wrap">
       <div class="result-banner">Prediction Result &mdash; IPL 2026</div>
       <div class="result-body">
-        <div class="result-winner" id="rw"><span id="wname">—</span></div>
+        <div class="result-winner" id="rw"><img id="wlogo" src="" alt="" style="width:52px;height:52px;object-fit:contain;vertical-align:middle;margin-right:14px;display:none"/><span id="wname">—</span></div>
         <div class="result-sub" id="rs"><span id="verdict"></span></div>
         <div class="prob-grid">
           <div class="prob-row" id="pr1">
-            <div class="prob-name" id="pn1">—</div>
+            <div class="prob-name" style="display:flex;align-items:center;gap:8px"><img id="plogo1" src="" alt="" style="width:24px;height:24px;object-fit:contain;display:none"/><span id="pn1">—</span></div>
             <div class="prob-bar-track"><div class="prob-bar-fill" id="pb1"></div></div>
             <div class="prob-pct" id="pp1">—</div>
           </div>
           <div class="prob-row" id="pr2">
-            <div class="prob-name" id="pn2">—</div>
+            <div class="prob-name" style="display:flex;align-items:center;gap:8px"><img id="plogo2" src="" alt="" style="width:24px;height:24px;object-fit:contain;display:none"/><span id="pn2">—</span></div>
             <div class="prob-bar-track"><div class="prob-bar-fill" id="pb2"></div></div>
             <div class="prob-pct" id="pp2">—</div>
           </div>
@@ -2447,8 +2447,9 @@ function getHomeTeam(){
 function refreshToss(){
  const k1=document.getElementById('t1').value, k2=document.getElementById('t2').value;
  const sel=document.getElementById('toss'), prev=sel.value;
- const n1=(k1&&T[k1])?T[k1].short:'Team 1', n2=(k2&&T[k2])?T[k2].short:'Team 2';
- sel.innerHTML=`<option value="t1bat">${n1} bat first</option><option value="t1bowl">${n1} bowl first</option><option value="t2bat">${n2} bat first</option><option value="t2bowl">${n2} bowl first</option><option value="unknown">Toss pending</option>`;
+ const n1=(k1&&T[k1])?T[k1].name:'Team 1', n2=(k2&&T[k2])?T[k2].name:'Team 2';
+ const s1=(k1&&T[k1])?T[k1].short:'T1', s2=(k2&&T[k2])?T[k2].short:'T2';
+ sel.innerHTML=`<option value="unknown">Toss pending</option><option value="t1">${s1} — ${n1}</option><option value="t2">${s2} — ${n2}</option>`;
  if(prev) sel.value=prev;
 }
 function refreshAnalysis(){
@@ -2521,12 +2522,12 @@ function showResult(k1,k2){
   let p1=t1.wr, p2=t2.wr;
   if(venue==='h1') p1*=1.13; else if(venue==='h2') p2*=1.13;
   p1*=.65+f1*.14; p2*=.65+f2*.14;
-  if(toss==='t1bat'&&pitch==='batting')  p1*=1.08;
-  if(toss==='t1bowl'&&pitch==='bowling') p1*=1.07;
-  if(toss==='t2bat'&&pitch==='batting')  p2*=1.08;
-  if(toss==='t2bowl'&&pitch==='bowling') p2*=1.07;
-  if(dew==='yes'&&toss==='t1bat')  p2*=1.10;
-  if(dew==='yes'&&toss==='t2bat')  p1*=1.10;
+  if(toss==='t1'&&pitch==='batting')  p1*=1.08;
+  if(toss==='t1'&&pitch==='bowling') p1*=1.07;
+  if(toss==='t2'&&pitch==='batting')  p2*=1.08;
+  if(toss==='t2'&&pitch==='bowling') p2*=1.07;
+  if(dew==='yes'&&toss==='t1')  p2*=1.10;
+  if(dew==='yes'&&toss==='t2')  p1*=1.10;
 
   const tot=p1+p2;
   const pct1=Math.round(p1/tot*100), pct2=100-pct1;
@@ -2534,20 +2535,26 @@ function showResult(k1,k2){
   const conf=Math.min(91,Math.max(54,Math.abs(pct1-pct2)+50));
   const grade=conf>=80?'Very High':conf>=68?'High':conf>=58?'Moderate':'Close Call';
 
-  // Winner name
+  // Winner name + logo
   const wn=document.getElementById('wname');
   wn.textContent=winner.name; wn.style.color=winner.color;
-
-  // Verdict
-  const pd={batting:'high-scoring',bowling:'low-scoring',balanced:'balanced',spin:'spin-dominated'};
-  document.getElementById('verdict').textContent=
-    `Predicted on a ${pd[pitch]||'balanced'} pitch${dew==='yes'?' with dew':''} — ${vN||'venue TBD'}.`;
+  const wlogo=document.getElementById('wlogo');
+  if(wlogo){wlogo.src=winner.logo;wlogo.style.display='inline-block';wlogo.onerror=function(){this.style.display='none'};}
 
   // Team names + percentages
   document.getElementById('pn1').textContent=t1.short;
   document.getElementById('pn2').textContent=t2.short;
   document.getElementById('pp1').textContent=pct1+'%';
   document.getElementById('pp2').textContent=pct2+'%';
+  const pl1=document.getElementById('plogo1');
+  const pl2=document.getElementById('plogo2');
+  if(pl1){pl1.src=t1.logo;pl1.style.display='inline-block';pl1.onerror=function(){this.style.display='none'};}
+  if(pl2){pl2.src=t2.logo;pl2.style.display='inline-block';pl2.onerror=function(){this.style.display='none'};}
+
+  // Verdict
+  const pd={batting:'high-scoring',bowling:'low-scoring',balanced:'balanced',spin:'spin-dominated'};
+  document.getElementById('verdict').textContent=
+    `Predicted on a ${pd[pitch]||'balanced'} pitch${dew==='yes'?' with dew':''} — ${vN||'venue TBD'}.`;
 
   // Probability bars
   document.getElementById('pb1').style.background=t1.color;
