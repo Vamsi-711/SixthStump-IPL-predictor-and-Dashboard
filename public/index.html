@@ -11,7 +11,6 @@
 <meta property="og:title" content="SixthStump — IPL 2026 Win Predictor">
 <meta property="og:description" content="Predict IPL 2026 match winners. Full squads, schedules and stats.">
 <link rel="manifest" href="/manifest.json">
-<link rel="icon" href="/favicon.png?v=2">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
@@ -164,28 +163,12 @@ body.dark .toggle-pill{background:var(--gold);border-color:var(--gold)}
 
 /* RULE LINE */
 .masthead-rule{
-  border-top:1px solid rgba(59,130,246,.15);
+  border-top:1px solid rgba(244,238,216,.15);
   border-bottom:none;
-  display:grid;
-  grid-template-columns:1fr auto 1fr;
-  align-items:center;
+  display:flex;align-items:center;
   padding:5px 20px;
   max-width:1020px;margin:0 auto;
-  gap:8px;overflow:hidden;
-}
-.rule-left{
-  font-family:var(--mono);font-size:9px;
-  letter-spacing:2px;text-transform:uppercase;
-  opacity:.5;white-space:nowrap;overflow:hidden;
-  text-overflow:ellipsis;
-  display:flex;align-items:center;gap:6px;
-}
-.rule-right{
-  font-family:var(--mono);font-size:9px;
-  letter-spacing:2px;text-transform:uppercase;
-  opacity:.5;white-space:nowrap;overflow:hidden;
-  text-overflow:ellipsis;
-  display:flex;align-items:center;justify-content:flex-end;gap:6px;
+  gap:12px;overflow:hidden;
 }
 .rule-ornament{color:#3B82F6;font-size:10px;flex-shrink:0}
 .rule-text{
@@ -196,8 +179,7 @@ body.dark .toggle-pill{background:var(--gold);border-color:var(--gold)}
 }
 .rule-center{
   font-family:var(--serif);font-size:11px;font-style:italic;
-  color:#3B82F6;flex-shrink:0;white-space:nowrap;
-  text-align:center;
+  color:#3B82F6;flex-shrink:0;
 }
 
 /* ── COUNTDOWN ─────────────────────────── */
@@ -388,15 +370,14 @@ body.dark .ac-tag.pos{border-color:var(--gold);color:var(--gold)}
   border-bottom:1px solid rgba(59,130,246,0.15);
 }
 .cond-grid{
-  display:grid;grid-template-columns:repeat(4,1fr);
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
   gap:0;border:var(--border);
 }
 .cond-cell{
   padding:14px 16px;border-right:var(--border-g);
   border-bottom:var(--border-g);
 }
-.cond-cell:nth-child(3n){border-right:var(--border-g)}
-.cond-cell:nth-child(4n){border-right:none}
+.cond-cell:nth-child(3n){border-right:none}
 .cond-label{
   font-family:var(--mono);font-size:8px;letter-spacing:3px;
   text-transform:uppercase;color:var(--muted);margin-bottom:6px;
@@ -940,84 +921,56 @@ body.dark .rec-lb-val{color:var(--gold)}
 /* ── RESPONSIVE ────────────────────────── */
 @media(max-width:768px){
   .wrap,.content{padding-left:14px;padding-right:14px}
-
-  /* MASTHEAD */
   .masthead-top{grid-template-columns:1fr auto;gap:8px;padding:10px 14px}
   .masthead-byline{display:none}
   .masthead-logo{font-size:clamp(22px,7vw,36px);text-align:left}
-  .masthead-right{flex-direction:row;align-items:center;gap:6px}
+  .masthead-right{flex-direction:column;align-items:flex-end;gap:4px}
   .masthead-sub{display:none}
-  .masthead-rule{padding:6px 12px;margin:0 10px 10px}
-  .rule-right{display:none}
-  .rule-left{font-size:8px;letter-spacing:1px}
-  .rule-center{font-size:10px}
+  .masthead-rule{padding:5px 14px}
+  .rule-text:last-of-type{display:none}
 
-  /* COUNTDOWN */
-  .countdown-inner{padding:8px 14px;gap:8px;flex-wrap:nowrap}
-  .cd-info{flex:1;min-width:0}
-  .cd-match-name{font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .cd-n{font-size:16px}
-  .cd-unit{padding:3px 6px}
-  .cd-colon{font-size:16px}
-  .cd-btns{gap:4px}
-  .cd-action{font-size:8px;padding:5px 8px;letter-spacing:1px}
+  .countdown-inner{padding:8px 14px;gap:10px}
+  .cd-n{font-size:18px}
+  .cd-unit{padding:3px 7px}
 
-  /* TABS */
-  .tab-btn{font-size:9px;padding:10px 10px;letter-spacing:1px}
+  .tab-btn{font-size:9px;padding:10px 12px;letter-spacing:1px}
 
-  /* CONTENT */
-  .content{padding-top:20px;padding-bottom:60px}
+  .content{padding-top:20px}
   .sec-head{flex-wrap:wrap;gap:8px}
   .sec-title{font-size:clamp(18px,5vw,26px)}
 
-  /* PREDICTOR */
   .predictor-grid{grid-template-columns:1fr}
   .vs-divider{height:36px;border-left:none;border-right:none;border-top:var(--border-g);border-bottom:var(--border-g)}
   .analysis-strip{grid-template-columns:1fr}
   .analysis-card{border-right:none;border-bottom:var(--border-g)}
   .analysis-card:last-child{border-bottom:none}
-  .cond-grid{grid-template-columns:1fr 1fr !important}
-  .predict-btn{width:100%;font-size:18px !important;padding:16px !important}
-  .result-winner{font-size:clamp(22px,6vw,38px)}
+  .cond-grid{grid-template-columns:1fr 1fr}
+  .predict-btn{width:100%;font-size:16px;padding:15px}
   .result-bottom{grid-template-columns:1fr}
   .conf-wrap{border-left:none;padding-left:0;border-top:var(--border-g);padding-top:16px}
-  .prob-row{grid-template-columns:auto 1fr 52px;gap:8px}
-  .factors-grid{grid-template-columns:1fr 1fr}
+  .prob-row{grid-template-columns:90px 1fr 48px}
 
-  /* SCHEDULE */
   .match-row{grid-template-columns:72px 1fr auto 1fr}
   .match-cell.match-venue-cell{display:none}
   .match-tname{font-size:12px}
 
-  /* SQUADS */
   .squad-grid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr))}
-  .squad-top{gap:10px;padding:14px}
-  .sq-name{font-size:16px}
 
-  /* STANDINGS */
-  .pt-table th,.pt-table td{padding:8px 8px;font-size:11px}
-
-  /* SEASON STATS */
   .stats-grid{grid-template-columns:1fr 1fr}
   .istat-grid{grid-template-columns:1fr}
-  .istat-row{grid-template-columns:26px 1fr auto}
+  .istat-row{grid-template-columns:22px 1fr auto}
   .isub-txt{display:none}
   .storylines{grid-template-columns:1fr}
 
-  /* COMPARE */
   .compare-selectors{grid-template-columns:1fr}
   .cmp-vs-col{height:36px;border:none;border-top:var(--border-g);border-bottom:var(--border-g)}
   .cmp-stat-name{min-width:70px;font-size:8px}
-  .cmp-val{font-size:15px;padding:9px 10px}
 
-  /* RECORDS */
   .records-grid{grid-template-columns:1fr}
 
-  /* HOF */
   .hof-year-row,.hof-header{grid-template-columns:50px 1fr 1fr}
   .hof-year{font-size:13px;padding:10px 6px}
 
-  /* MODAL */
   .modal-overlay{align-items:flex-end;padding:0}
   .modal-box{
     max-height:90vh;width:100%;max-width:100%;
@@ -1028,42 +981,12 @@ body.dark .rec-lb-val{color:var(--gold)}
 }
 
 @media(max-width:420px){
-  /* MASTHEAD */
-  .masthead-top{padding:8px 12px}
-  .masthead-logo{font-size:clamp(20px,8vw,30px)}
-  .theme-btn span:last-child{display:none}
-  .masthead-rule{display:none}
-
-  /* TABS */
-  .tab-btn{font-size:8px;padding:10px 8px;letter-spacing:0.5px}
-
-  /* COUNTDOWN */
-  .cd-action{display:none}
-  .cd-match-name{font-size:11px}
-
-  /* CONDITIONS */
-  .cond-grid{grid-template-columns:1fr 1fr !important}
-  .cond-cell{padding:10px 12px !important}
-  .cond-select{font-size:11px !important;padding:6px 8px !important}
-  .cond-label{font-size:8px !important}
-
-  /* RESULT */
-  .result-winner{font-size:clamp(18px,6vw,28px)}
-  #wlogo{width:36px !important;height:36px !important;margin-right:8px !important}
-  .prob-row{grid-template-columns:auto 1fr 44px}
-  #plogo1,#plogo2{width:18px !important;height:18px !important}
-  .factors-grid{grid-template-columns:1fr}
-
-  /* STATS */
+  .tab-btn{font-size:8px;padding:10px 10px}
+  .cond-grid{grid-template-columns:1fr}
   .stats-grid{grid-template-columns:1fr}
+  .factors-grid{grid-template-columns:1fr}
   .squad-grid{grid-template-columns:1fr 1fr}
-
-  /* HOF */
   .hof-year-row,.hof-header{grid-template-columns:40px 1fr 1fr}
-
-  /* COMPARE */
-  .cmp-val{font-size:13px;padding:8px 8px}
-  .cmp-stat-name{min-width:60px}
 }
 .rec-cat-btn{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;padding:10px 16px;background:none;border:none;border-right:var(--border-g);color:var(--muted);cursor:pointer;white-space:nowrap;flex-shrink:0;min-height:44px;border-bottom:3px solid transparent;transition:color .15s}
 .rec-cat-btn:hover{color:var(--ink)}
@@ -1284,7 +1207,7 @@ body.dark{
 .cond-grid{
   border:none !important;
   gap:12px !important;
-  grid-template-columns:repeat(4,1fr) !important;
+  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
 }
 .cond-cell{
   background:var(--cream2) !important;
@@ -1628,27 +1551,12 @@ body.dark .toggle-pill{background:#3B82F6}
   .masthead-rule{margin:0 8px 10px}
   .tab-nav{padding:0 8px;top:8px}
   .tab-nav-inner{border-radius:20px;padding:4px}
-  .tab-btn{padding:8px 10px !important;font-size:9px}
+  .tab-btn{padding:8px 12px !important;font-size:9px}
   .predictor-grid{grid-template-columns:1fr !important;gap:12px !important}
   .analysis-strip{grid-template-columns:1fr !important;gap:12px !important}
   .compare-selectors{gap:12px !important}
   .cmp-vs-col{align-self:auto;width:100%;height:40px;border-radius:var(--r-sm) !important}
   .stats-grid{gap:10px !important}
-  .result-wrap{margin:0}
-  .result-body{padding:18px}
-}
-
-@media(max-width:420px){
-  .countdown{margin:0 6px 8px}
-  .masthead-rule{display:none}
-  .tab-nav{padding:0 4px;top:6px}
-  .tab-nav-inner{border-radius:16px;padding:3px}
-  .tab-btn{padding:7px 7px !important;font-size:8px !important;letter-spacing:0.3px}
-  .content{padding:16px 10px 60px}
-  .result-body{padding:14px}
-  .prob-row{gap:6px}
-  .squad-grid{gap:8px}
-  .player-chip{padding:10px 10px}
 }
 
 /* ── ANALYSIS CARD INTERNALS ── */
@@ -1661,9 +1569,86 @@ body.dark .toggle-pill{background:#3B82F6}
 .a-tag-lbl{font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);display:block;margin:8px 0 4px}
 .a-summary{font-size:12px;color:var(--muted);font-style:italic;margin-top:10px;line-height:1.5;
   padding:10px;background:rgba(59,130,246,0.04);border-radius:var(--r-sm);border-left:2px solid #3B82F6}
+
+/* ═══════════════════════════════════════
+   PRELOADER
+   ═══════════════════════════════════════ */
+#preloader{
+  position:fixed;inset:0;z-index:99999;
+  background:var(--cream);
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  gap:28px;
+  transition:opacity .5s ease, visibility .5s ease;
+}
+#preloader.hidden{
+  opacity:0;visibility:hidden;pointer-events:none;
+}
+.pre-logo{
+  font-family:'Outfit',sans-serif;
+  font-size:clamp(36px,8vw,64px);
+  font-weight:900;letter-spacing:-2px;
+  line-height:1;
+  background:linear-gradient(135deg,#3B82F6,#8B5CF6,#EC4899);
+  -webkit-background-clip:text;background-clip:text;
+  color:transparent;
+  animation:preLogoPulse 1.8s ease-in-out infinite;
+}
+@keyframes preLogoPulse{
+  0%,100%{opacity:1;transform:scale(1)}
+  50%{opacity:.7;transform:scale(.97)}
+}
+.pre-tagline{
+  font-family:'Inter',sans-serif;
+  font-size:11px;letter-spacing:4px;text-transform:uppercase;
+  color:var(--muted);
+}
+.pre-bar-wrap{
+  width:180px;height:3px;
+  background:rgba(59,130,246,0.15);
+  border-radius:2px;overflow:hidden;
+}
+.pre-bar{
+  height:100%;width:0%;
+  background:linear-gradient(90deg,#3B82F6,#8B5CF6);
+  border-radius:2px;
+  animation:preBar 1.6s cubic-bezier(.4,0,.2,1) forwards;
+}
+@keyframes preBar{
+  0%{width:0%}
+  60%{width:80%}
+  90%{width:95%}
+  100%{width:100%}
+}
+.pre-dots{
+  display:flex;gap:8px;
+}
+.pre-dot{
+  width:7px;height:7px;border-radius:50%;
+  background:linear-gradient(135deg,#3B82F6,#8B5CF6);
+  animation:preDot .9s ease-in-out infinite;
+}
+.pre-dot:nth-child(2){animation-delay:.15s}
+.pre-dot:nth-child(3){animation-delay:.3s}
+@keyframes preDot{
+  0%,100%{transform:translateY(0);opacity:.4}
+  50%{transform:translateY(-8px);opacity:1}
+}
 </style>
 </head>
 <body>
+
+<!-- PRELOADER -->
+<div id="preloader">
+  <div class="pre-logo">SixthStump</div>
+  <div class="pre-tagline">IPL 2026 Win Predictor</div>
+  <div class="pre-bar-wrap"><div class="pre-bar"></div></div>
+  <div class="pre-dots">
+    <div class="pre-dot"></div>
+    <div class="pre-dot"></div>
+    <div class="pre-dot"></div>
+  </div>
+</div>
 
 <div class="cfl" id="cfl"></div>
 
@@ -1692,9 +1677,11 @@ body.dark .toggle-pill{background:#3B82F6}
     </div>
   </div>
   <div class="masthead-rule wrap">
-    <span class="rule-left"><span class="rule-ornament">&#9670;</span>TATA IPL 2026 · 84 MATCHES · 10 TEAMS · MAR 28 – MAY 31</span>
+    <span class="rule-ornament">&#9670;</span>
+    <span class="rule-text">TATA IPL 2026 · 84 MATCHES · 10 TEAMS · MAR 28 – MAY 31</span>
     <span class="rule-center">&#9670; SixthStump &#9670;</span>
-    <span class="rule-right">RCB DEFENDING CHAMPIONS · 28 MARCH 2026<span class="rule-ornament">&#9670;</span></span>
+    <span class="rule-text" style="text-align:right;direction:rtl">RCB DEFENDING CHAMPIONS · 28 MARCH 2026</span>
+    <span class="rule-ornament">&#9670;</span>
   </div>
 </header>
 
@@ -1880,23 +1867,23 @@ body.dark .toggle-pill{background:#3B82F6}
 
   <div id="loader" style="display:none;text-align:center;padding:20px;font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:2px">CALCULATING&hellip;</div>
   <div class="predict-wrap">
-    <button class="predict-btn" onclick="predict()" style="font-size:22px;padding:20px 72px;letter-spacing:1px;">Predict the Winner &rarr;</button>
+    <button class="predict-btn" onclick="predict()">Predict the Winner &rarr;</button>
   </div>
 
   <div id="rc" style="display:none"><div id="rp">
     <div class="result-wrap">
       <div class="result-banner">Prediction Result &mdash; IPL 2026</div>
       <div class="result-body">
-        <div class="result-winner" id="rw"><img id="wlogo" src="" alt="" style="width:52px;height:52px;object-fit:contain;vertical-align:middle;margin-right:14px;display:none"/><span id="wname">—</span></div>
+        <div class="result-winner" id="rw"><span id="wname">—</span></div>
         <div class="result-sub" id="rs"><span id="verdict"></span></div>
         <div class="prob-grid">
           <div class="prob-row" id="pr1">
-            <div class="prob-name" style="display:flex;align-items:center;gap:8px"><img id="plogo1" src="" alt="" style="width:24px;height:24px;object-fit:contain;display:none"/><span id="pn1">—</span></div>
+            <div class="prob-name" id="pn1">—</div>
             <div class="prob-bar-track"><div class="prob-bar-fill" id="pb1"></div></div>
             <div class="prob-pct" id="pp1">—</div>
           </div>
           <div class="prob-row" id="pr2">
-            <div class="prob-name" style="display:flex;align-items:center;gap:8px"><img id="plogo2" src="" alt="" style="width:24px;height:24px;object-fit:contain;display:none"/><span id="pn2">—</span></div>
+            <div class="prob-name" id="pn2">—</div>
             <div class="prob-bar-track"><div class="prob-bar-fill" id="pb2"></div></div>
             <div class="prob-pct" id="pp2">—</div>
           </div>
@@ -2049,10 +2036,6 @@ body.dark .toggle-pill{background:#3B82F6}
 </main>
 
 <script>
-
-// ── GLOBAL STATE ──
-let activeYear = '2025';
-let activeCat  = 'orange';
 
 // 
 // DATA
@@ -2428,67 +2411,9 @@ const ISTAT2025={
 };
 
 // 
-// PLAYER STATS (All-Time IPL)
+// PREDICTOR
 // 
-const PSTATS = {
- // RCB
- "Virat Kohli":    {role:"BAT",nat:"IND",debut:2008,bat:{m:252,r:8004,avg:37.4,sr:131.5,hs:113,h:8,f:56,s:294}},
- "Rajat Patidar":  {role:"BAT",nat:"IND",debut:2021,bat:{m:60,r:1479,avg:32.1,sr:145.2,hs:112,h:1,f:9,s:72}},
- "Phil Salt":      {role:"WK",nat:"ENG",debut:2024,bat:{m:16,r:389,avg:25.9,sr:175.8,hs:87,h:0,f:3,s:28}},
- "Glenn Maxwell":  {role:"AR",nat:"AUS",debut:2012,bat:{m:122,r:2771,avg:26.3,sr:155.9,hs:95,h:0,f:16,s:205},bowl:{wkts:33,eco:8.38,avg:35.2,bb:"3/7",m:122}},
- "Josh Hazlewood": {role:"BOWL",nat:"AUS",debut:2022,bowl:{wkts:38,eco:7.12,avg:22.4,bb:"4/23",m:36}},
- "Mohammed Siraj":  {role:"BOWL",nat:"IND",debut:2017,bowl:{wkts:93,eco:8.46,avg:26.7,bb:"4/13",m:95}},
- "Tim David":      {role:"BAT",nat:"SGP",debut:2022,bat:{m:48,r:887,avg:33.9,sr:179.2,hs:75,h:0,f:5,s:78}},
- // MI
- "Rohit Sharma":   {role:"BAT",nat:"IND",debut:2008,bat:{m:250,r:6211,avg:29.6,sr:130.0,hs:109,h:1,f:41,s:245}},
- "Hardik Pandya":  {role:"AR",nat:"IND",debut:2015,bat:{m:151,r:2677,avg:30.5,sr:145.2,hs:91,h:0,f:13,s:183},bowl:{wkts:77,eco:8.99,avg:31.0,bb:"4/20",m:151}},
- "Jasprit Bumrah": {role:"BOWL",nat:"IND",debut:2013,bowl:{wkts:162,eco:7.43,avg:23.3,bb:"5/10",m:135}},
- "Suryakumar Yadav":{role:"BAT",nat:"IND",debut:2012,bat:{m:156,r:3468,avg:30.9,sr:148.0,hs:103,h:1,f:22,s:222}},
- // CSK
- "Ruturaj Gaikwad":{role:"BAT",nat:"IND",debut:2019,bat:{m:108,r:3467,avg:37.0,sr:134.5,hs:101,h:1,f:25,s:98}},
- "MS Dhoni":       {role:"WK",nat:"IND",debut:2008,bat:{m:264,r:5243,avg:39.1,sr:136.3,hs:84,h:0,f:24,s:256}},
- "Devon Conway":   {role:"WK",nat:"NZ",debut:2023,bat:{m:28,r:819,avg:37.2,sr:130.4,hs:94,h:0,f:6,s:28}},
- "Sanju Samson":   {role:"WK",nat:"IND",debut:2013,bat:{m:177,r:4849,avg:32.7,sr:142.4,hs:119,h:3,f:26,s:242},note:"Now at CSK via trade from RR."},
- // KKR
- "Sunil Narine":   {role:"AR",nat:"WI",debut:2012,bat:{m:177,r:1589,avg:14.2,sr:163.4,hs:73,h:0,f:4,s:78},bowl:{wkts:169,eco:6.67,avg:23.9,bb:"5/19",m:177}},
- "Ajinkya Rahane": {role:"BAT",nat:"IND",debut:2008,bat:{m:152,r:3904,avg:31.0,sr:124.7,hs:105,h:2,f:25,s:96}},
- "Cameron Green":  {role:"AR",nat:"AUS",debut:2023,bat:{m:22,r:374,avg:22.0,sr:148.8,hs:79,h:0,f:2,s:28},bowl:{wkts:10,eco:9.42,avg:38.2,bb:"2/17",m:22}},
- "Varun Chakravarthy":{role:"BOWL",nat:"IND",debut:2019,bowl:{wkts:86,eco:7.84,avg:25.7,bb:"5/20",m:87}},
- "Rinku Singh":    {role:"BAT",nat:"IND",debut:2018,bat:{m:66,r:1321,avg:37.7,sr:151.2,hs:67,h:0,f:9,s:77}},
- // SRH
- "Heinrich Klaasen":{role:"WK",nat:"SA",debut:2022,bat:{m:45,r:1299,avg:38.2,sr:173.0,hs:104,h:1,f:8,s:79}},
- "Travis Head":    {role:"BAT",nat:"AUS",debut:2024,bat:{m:19,r:703,avg:50.2,sr:184.6,hs:102,h:1,f:6,s:31}},
- "Pat Cummins":    {role:"AR",nat:"AUS",debut:2014,bat:{m:71,r:475,avg:16.4,sr:137.3,hs:56,h:0,f:1,s:24},bowl:{wkts:64,eco:9.38,avg:30.2,bb:"4/14",m:71}},
- "Bhuvneshwar Kumar":{role:"BOWL",nat:"IND",debut:2009,bowl:{wkts:181,eco:7.73,avg:26.3,bb:"5/19",m:179}},
- // DC
- "Rishabh Pant":   {role:"WK",nat:"IND",debut:2016,bat:{m:111,r:3284,avg:35.6,sr:151.9,hs:128,h:1,f:18,s:208}},
- "Jake Fraser-McGurk":{role:"BAT",nat:"AUS",debut:2024,bat:{m:9,r:217,avg:27.1,sr:212.7,hs:65,h:0,f:1,s:21}},
- "Axar Patel":     {role:"AR",nat:"IND",debut:2014,bat:{m:163,r:1533,avg:19.4,sr:143.3,hs:64,h:0,f:5,s:96},bowl:{wkts:121,eco:7.22,avg:26.8,bb:"4/21",m:163}},
- "Mitchell Marsh": {role:"AR",nat:"AUS",debut:2015,bat:{m:57,r:941,avg:22.4,sr:141.0,hs:89,h:0,f:5,s:54},bowl:{wkts:34,eco:9.57,avg:31.1,bb:"3/16",m:57}},
- // PBKS
- "Shreyas Iyer":   {role:"BAT",nat:"IND",debut:2015,bat:{m:131,r:3703,avg:33.4,sr:123.5,hs:96,h:0,f:28,s:131}},
- "Sam Curran":     {role:"AR",nat:"ENG",debut:2019,bat:{m:65,r:729,avg:18.7,sr:135.5,hs:55,h:0,f:3,s:33},bowl:{wkts:65,eco:9.22,avg:28.8,bb:"5/10",m:65}},
- "Arshdeep Singh": {role:"BOWL",nat:"IND",debut:2019,bowl:{wkts:89,eco:8.68,avg:26.1,bb:"5/32",m:83}},
- "Prabhsimran Singh":{role:"WK",nat:"IND",debut:2019,bat:{m:54,r:1214,avg:26.4,sr:154.4,hs:103,h:1,f:7,s:58}},
- // RR
- "Yashasvi Jaiswal":{role:"BAT",nat:"IND",debut:2023,bat:{m:32,r:1353,avg:50.1,sr:162.9,hs:124,h:3,f:6,s:80}},
- "Riyan Parag":    {role:"AR",nat:"IND",debut:2019,bat:{m:91,r:1773,avg:25.7,sr:136.9,hs:84,h:0,f:11,s:88},bowl:{wkts:15,eco:9.30,avg:38.4,bb:"2/17",m:91}},
- "Jos Buttler":    {role:"WK",nat:"ENG",debut:2016,bat:{m:94,r:3582,avg:43.7,sr:149.3,hs:124,h:4,f:24,s:165}},
- "Vaibhav Suryavanshi":{role:"BAT",nat:"IND",debut:2025,bat:{m:5,r:198,avg:39.6,sr:187.7,hs:101,h:1,f:0,s:17},note:"Youngest centurion in IPL history."},
- // GT
- "Shubman Gill":   {role:"BAT",nat:"IND",debut:2019,bat:{m:113,r:3748,avg:42.6,sr:140.3,hs:129,h:5,f:22,s:132}},
- "Rashid Khan":    {role:"AR",nat:"AFG",debut:2017,bat:{m:129,r:575,avg:14.0,sr:149.4,hs:40,h:0,f:0,s:23},bowl:{wkts:160,eco:6.95,avg:20.4,bb:"4/24",m:129}},
- "Sai Sudharsan":  {role:"BAT",nat:"IND",debut:2022,bat:{m:52,r:1671,avg:39.3,sr:135.6,hs:103,h:1,f:12,s:57}},
- "Prasidh Krishna":{role:"BOWL",nat:"IND",debut:2018,bowl:{wkts:78,eco:8.89,avg:26.8,bb:"4/30",m:75}},
- // LSG
- "KL Rahul":       {role:"WK",nat:"IND",debut:2014,bat:{m:143,r:5016,avg:47.3,sr:136.3,hs:132,h:5,f:40,s:178}},
- "Nicholas Pooran":{role:"WK",nat:"WI",debut:2018,bat:{m:87,r:1885,avg:28.6,sr:158.5,hs:77,h:0,f:11,s:137}},
- "Ravi Bishnoi":   {role:"BOWL",nat:"IND",debut:2021,bowl:{wkts:74,eco:7.90,avg:23.0,bb:"4/16",m:74}},
- "Mohsin Khan":    {role:"BOWL",nat:"IND",debut:2021,bowl:{wkts:49,eco:7.64,avg:20.1,bb:"4/16",m:44}},
-};
-
-
-function onTeam(n, acId){
+function onTeam(n){
  const k=document.getElementById('t'+n).value;
  const badge=document.getElementById('tb'+n);
  if(!badge) return;
@@ -2536,9 +2461,8 @@ function getHomeTeam(){
 function refreshToss(){
  const k1=document.getElementById('t1').value, k2=document.getElementById('t2').value;
  const sel=document.getElementById('toss'), prev=sel.value;
- const n1=(k1&&T[k1])?T[k1].name:'Team 1', n2=(k2&&T[k2])?T[k2].name:'Team 2';
- const s1=(k1&&T[k1])?T[k1].short:'T1', s2=(k2&&T[k2])?T[k2].short:'T2';
- sel.innerHTML=`<option value="unknown">Toss pending</option><option value="t1">${s1} — ${n1}</option><option value="t2">${s2} — ${n2}</option>`;
+ const n1=(k1&&T[k1])?T[k1].short:'Team 1', n2=(k2&&T[k2])?T[k2].short:'Team 2';
+ sel.innerHTML=`<option value="t1bat">${n1} bat first</option><option value="t1bowl">${n1} bowl first</option><option value="t2bat">${n2} bat first</option><option value="t2bowl">${n2} bowl first</option><option value="unknown">Toss pending</option>`;
  if(prev) sel.value=prev;
 }
 function refreshAnalysis(){
@@ -2578,7 +2502,7 @@ function renderCard(id,key){
  <span class="a-tag-lbl">Strengths</span><div class="a-tags">${sH}</div>
  <span class="a-tag-lbl">Weaknesses</span><div class="a-tags">${wH}</div>
  <div class="a-summary">${a.summary}<br/>KEY: ${a.keyPlayer} · OVERSEAS: ${a.overseas}</div>`;
- requestAnimationFrame(()=>el.querySelectorAll('.ac-bar-fill').forEach(b=>{b.style.background=t.color;b.style.width=b.dataset.v+'%'}));
+ requestAnimationFrame(()=>el.querySelectorAll('.a-bar-fill').forEach(b=>{b.style.background=t.color;b.style.width=b.dataset.v+'%'}));
 }
 function predict(){
  const k1=document.getElementById('t1').value, k2=document.getElementById('t2').value;
@@ -2611,12 +2535,12 @@ function showResult(k1,k2){
   let p1=t1.wr, p2=t2.wr;
   if(venue==='h1') p1*=1.13; else if(venue==='h2') p2*=1.13;
   p1*=.65+f1*.14; p2*=.65+f2*.14;
-  if(toss==='t1'&&pitch==='batting')  p1*=1.08;
-  if(toss==='t1'&&pitch==='bowling') p1*=1.07;
-  if(toss==='t2'&&pitch==='batting')  p2*=1.08;
-  if(toss==='t2'&&pitch==='bowling') p2*=1.07;
-  if(dew==='yes'&&toss==='t1')  p2*=1.10;
-  if(dew==='yes'&&toss==='t2')  p1*=1.10;
+  if(toss==='t1bat'&&pitch==='batting')  p1*=1.08;
+  if(toss==='t1bowl'&&pitch==='bowling') p1*=1.07;
+  if(toss==='t2bat'&&pitch==='batting')  p2*=1.08;
+  if(toss==='t2bowl'&&pitch==='bowling') p2*=1.07;
+  if(dew==='yes'&&toss==='t1bat')  p2*=1.10;
+  if(dew==='yes'&&toss==='t2bat')  p1*=1.10;
 
   const tot=p1+p2;
   const pct1=Math.round(p1/tot*100), pct2=100-pct1;
@@ -2624,26 +2548,20 @@ function showResult(k1,k2){
   const conf=Math.min(91,Math.max(54,Math.abs(pct1-pct2)+50));
   const grade=conf>=80?'Very High':conf>=68?'High':conf>=58?'Moderate':'Close Call';
 
-  // Winner name + logo
+  // Winner name
   const wn=document.getElementById('wname');
   wn.textContent=winner.name; wn.style.color=winner.color;
-  const wlogo=document.getElementById('wlogo');
-  if(wlogo){wlogo.src=winner.logo;wlogo.style.display='inline-block';wlogo.onerror=function(){this.style.display='none'};}
+
+  // Verdict
+  const pd={batting:'high-scoring',bowling:'low-scoring',balanced:'balanced',spin:'spin-dominated'};
+  document.getElementById('verdict').textContent=
+    `Predicted on a ${pd[pitch]||'balanced'} pitch${dew==='yes'?' with dew':''} — ${vN||'venue TBD'}.`;
 
   // Team names + percentages
   document.getElementById('pn1').textContent=t1.short;
   document.getElementById('pn2').textContent=t2.short;
   document.getElementById('pp1').textContent=pct1+'%';
   document.getElementById('pp2').textContent=pct2+'%';
-  const pl1=document.getElementById('plogo1');
-  const pl2=document.getElementById('plogo2');
-  if(pl1){pl1.src=t1.logo;pl1.style.display='inline-block';pl1.onerror=function(){this.style.display='none'};}
-  if(pl2){pl2.src=t2.logo;pl2.style.display='inline-block';pl2.onerror=function(){this.style.display='none'};}
-
-  // Verdict
-  const pd={batting:'high-scoring',bowling:'low-scoring',balanced:'balanced',spin:'spin-dominated'};
-  document.getElementById('verdict').textContent=
-    `Predicted on a ${pd[pitch]||'balanced'} pitch${dew==='yes'?' with dew':''} — ${vN||'venue TBD'}.`;
 
   // Probability bars
   document.getElementById('pb1').style.background=t1.color;
@@ -2928,7 +2846,7 @@ function renderIPanels(){
  const panel=document.getElementById('icpanel-'+cat.id);
  if(!panel) return;
  if(activeYear==='2026'){
- panel.innerHTML=`<div class="istat-grid"><div style="grid-column:1/-1"><div class="istat-card-head">${cat.icon} ${cat.title} <span style="opacity:.5;font-size:9px;margin-left:8px">IPL 2026 · NOT STARTED</span></div><div class="await-box"><div class="await-box-num">28</div><div class="await-box-txt">MARCH 2026</div><div class="await-box-sub">First match: RCB vs SRH · Bengaluru · 7:30 PM IST<br>Switch to IPL 2025 tab for last season\'s stats</div></div></div></div>`;
+ panel.innerHTML=`<div class="istat-grid"><div class="istat-card" style="grid-column:1/-1"><div class="istat-card-head"><span class="istat-icon">${cat.icon}</span><div><div class="istat-ctitle">${cat.title}</div><div class="istat-csub">IPL 2026 · NOT STARTED</div></div></div><div class="await-box"><div class="await-box-num">28</div><div class="await-box-txt">MARCH 2026</div><div class="await-box-sub">First match: RCB vs SRH · Bengaluru · 7:30 PM IST<br>Switch to IPL 2025 tab for last season\'s stats</div></div></div></div>`;
  return;
  }
  const rows=ISTAT2025[cat.id]||[];
@@ -2936,21 +2854,17 @@ function renderIPanels(){
  const rowsH=rows.map((r,i)=>{
  const pct=Math.round((parseFloat(r.v)||0)/maxV*100);
  const rCls=i===0?'g':i===1?'s':i===2?'b':'';
- const tLogo=r.t&&T[r.t]?`<img src="${T[r.t].logo}" onerror="this.style.display='none'" style="width:18px;height:18px;object-fit:contain;vertical-align:middle;margin-right:4px"/>`:' ';
+ const tLogo=r.t&&T[r.t]?`<img src="${T[r.t].logo}" onerror="this.style.display='none'"/>`:' ';
  const tColor=r.t&&T[r.t]?T[r.t].color:'#c8371a';
- const nameColors=['#3B82F6','#8B5CF6','#10B981','#F59E0B','#64748B'];
- const nameSizes=[17,16,15,14,14];
- const nameStyle=`color:${nameColors[i]||'#64748B'};font-size:${nameSizes[i]||14}px;font-weight:${i<3?900:700}`;
  return `<div class="istat-row">
- <div class="irank ${rCls}">${i===0?'🥇':i===1?'🥈':i===2?'🥉':i+1}</div>
- <div><div class="iname" style="${nameStyle}">${r.n}</div><div class="iteam">${tLogo}<span>${r.t}</span></div>
- <div class="ibar-wrap"><div class="ibar-fill" data-w="${pct}%" style="width:0%;background:${tColor}"></div></div>
- </div>
- <div class="ival">${r.v}</div>
+ <div class="irank ${rCls}">${i===0?'①':i===1?'②':i===2?'③':i+1}</div>
+ <div><div class="ipname">${r.n}</div><div class="ipteam">${tLogo}<span>${r.t}</span></div></div>
+ <div class="ival ${i===0?'red':''}">${r.v}</div>
  <div class="isub-txt">${r.s}</div>
- </div>`;
+ </div>
+ <div class="ibar-wrap"><div class="ibar-bg"><div class="ibar-fill" data-w="${pct}%" style="background:${tColor}"></div></div></div>`;
  }).join('');
- panel.innerHTML=`<div class="istat-grid"><div style="grid-column:1/-1"><div class="istat-card-head">${cat.icon} ${cat.title} <span style="opacity:.5;font-size:9px;margin-left:8px">${cat.sub} · IPL 2025 Final</span></div>${rowsH}</div></div>`;
+ panel.innerHTML=`<div class="istat-grid"><div class="istat-card" style="grid-column:1/-1"><div class="istat-card-head"><span class="istat-icon">${cat.icon}</span><div><div class="istat-ctitle">${cat.title}</div><div class="istat-csub">${cat.sub} · IPL 2025 Final</div></div></div>${rowsH}</div></div>`;
  requestAnimationFrame(()=>panel.querySelectorAll('.ibar-fill').forEach(b=>b.style.width=b.dataset.w));
  });
 }
@@ -2999,9 +2913,15 @@ document.addEventListener('DOMContentLoaded', function() {
 refreshVenue(); refreshToss();
   updateCountdown();
   setInterval(updateCountdown, 1000);
-  initNotifBtnInit();
-  initSoundBtnInit();
+  initNotifBtn(); initNotifBtnInit();
+  initSoundBtn(); initSoundBtnInit();
   initTheme();
+  // Dismiss preloader
+  setTimeout(() => {
+    const pre = document.getElementById('preloader');
+    if (pre) pre.classList.add('hidden');
+    setTimeout(() => { if (pre) pre.remove(); }, 600);
+  }, 1800);
 });
 // 
 // THEME TOGGLE
