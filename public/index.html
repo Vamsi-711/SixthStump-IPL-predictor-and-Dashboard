@@ -4793,22 +4793,49 @@
             const f1 = parseInt(document.getElementById('form1').value);
             const f2 = parseInt(document.getElementById('form2').value);
 
-            // Probability model
+            // Probability model EXPERT SYSTEM
             let p1 = t1.wr, p2 = t2.wr;
-            if (venue === 'h1') p1 *= 1.13; else if (venue === 'h2') p2 *= 1.13;
-            p1 *= .65 + f1 * .14; p2 *= .65 + f2 * .14;
-            if (toss === 't1bat' && pitch === 'batting') p1 *= 1.08;
-            if (toss === 't1bowl' && pitch === 'bowling') p1 *= 1.07;
-            if (toss === 't2bat' && pitch === 'batting') p2 *= 1.08;
-            if (toss === 't2bowl' && pitch === 'bowling') p2 *= 1.07;
-            if (dew === 'yes' && toss === 't1bat') p2 *= 1.10;
-            if (dew === 'yes' && toss === 't2bat') p1 *= 1.10;
-
+            
+            // 1. Home Ground
+            if (venue === 'h1') p1 *= 1.15; else if (venue === 'h2') p2 *= 1.15;
+            
+            // 2. Form Match
+            let fd = (f1 - f2) * 0.05;
+            p1 += fd; p2 -= fd;
+            
+            // 3. Pitch & Squad strengths mapping
+            const isSpin1 = k1 === 'CSK' || k1 === 'KKR' || k1 === 'RR' || k1 === 'LSG';
+            const isSpin2 = k2 === 'CSK' || k2 === 'KKR' || k2 === 'RR' || k2 === 'LSG';
+            if (pitch === 'spin') {
+                if(isSpin1) p1 *= 1.14;
+                if(isSpin2) p2 *= 1.14;
+            }
+            if (pitch === 'batting') {
+                if(k1 === 'SRH' || k1 === 'RCB' || k1 === 'MI') p1 *= 1.10;
+                if(k2 === 'SRH' || k2 === 'RCB' || k2 === 'MI') p2 *= 1.10;
+            }
+            if (pitch === 'bowling') {
+                p1 *= 0.95; p2 *= 0.95; // Flatten scoring advantages
+            }
+            
+            // 4. Toss & Dew Logic
+            if (dew === 'yes') {
+                if (toss === 't1bowl') p1 *= 1.20;
+                else if (toss === 't2bowl') p2 *= 1.20;
+                else if (toss === 't1bat') p2 *= 1.15; // t1 chose to bat in dew, poor choice
+                else if (toss === 't2bat') p1 *= 1.15;
+            } else {
+                if (toss === 't1bat' && pitch === 'batting') p1 *= 1.08;
+                if (toss === 't1bowl' && pitch === 'bowling') p1 *= 1.09;
+                if (toss === 't2bat' && pitch === 'batting') p2 *= 1.08;
+                if (toss === 't2bowl' && pitch === 'bowling') p2 *= 1.09;
+            }
+            
             const tot = p1 + p2;
             const pct1 = Math.round(p1 / tot * 100), pct2 = 100 - pct1;
             const winner = pct1 >= pct2 ? t1 : t2;
-            const conf = Math.min(91, Math.max(54, Math.abs(pct1 - pct2) + 50));
-            const grade = conf >= 80 ? 'Very High' : conf >= 68 ? 'High' : conf >= 58 ? 'Moderate' : 'Close Call';
+            const conf = Math.min(96, Math.max(51, Math.abs(pct1 - pct2) + 50));
+            const grade = conf >= 85 ? 'Very High' : conf >= 70 ? 'High' : conf >= 60 ? 'Moderate' : 'Close Call';
 
             // Winner name
             const wn = document.getElementById('wname');
@@ -4819,7 +4846,7 @@
             // Verdict
             const pd = { batting: 'high-scoring', bowling: 'low-scoring', balanced: 'balanced', spin: 'spin-dominated' };
             document.getElementById('verdict').textContent =
-                `Predicted on a ${pd[pitch] || 'balanced'} pitch${dew === 'yes' ? ' with dew' : ''} — ${vN || 'venue TBD'}.`;
+                `Predicted on a ${pd[pitch] || 'balanced'} pitch${dew === 'yes' ? ' with heavy dew' : ''} — ${vN || 'venue TBD'}.`;
 
             // Team names + percentages
             document.getElementById('pn1').textContent = t1.short;
@@ -4875,13 +4902,25 @@
                 fg.appendChild(d);
             });
 
-            // Insight
-            const bits = [`${winner.name} are favoured with a ${pct1 > 50 ? pct1 : pct2}% win probability. `];
-            if (f1 > f2) bits.push(`${t1.short} arrive in superior form (${f1}/5). `);
-            else if (f2 > f1) bits.push(`${t2.short} arrive in superior form (${f2}/5). `);
-            if (dew === 'yes') bits.push('Dew is likely to assist the chasing side. ');
-            if (pitch === 'spin') bits.push('Spinners will be decisive — check squad spin depth. ');
-            if (venue !== 'neutral') bits.push(`Home advantage at ${vN || 'this venue'} is statistically significant. `);
+            // Insight Expert Generation
+            const bits = [`${winner.name} holds a dynamic edge (${pct1 > 50 ? pct1 : pct2}% probability). `];
+            if (f1 !== f2) {
+                const better = f1 > f2 ? t1.short : t2.short;
+                bits.push(`${better}'s superior recent form provides baseline momentum. `);
+            }
+            if (pitch === 'spin' && (isSpin1 || isSpin2)) {
+                if (isSpin1 && isSpin2) bits.push(`The spin-heavy pitch equally boosts both ${t1.short} and ${t2.short}'s world-class spinners. `);
+                else bits.push(`The spin-dominated surface strongly amplifies ${isSpin1 ? t1.short : t2.short}'s bowling attack. `);
+            }
+            if (dew === 'yes') {
+                if (toss.includes('bowl')) bits.push(`Heavy dew completely validates the decision to bowl first, severely handicapping the defending side. `);
+                else if (toss.includes('bat')) bits.push(`Choosing to bat first in heavy dew is a massive tactical risk that mathematically reduces their win probability! `);
+                else bits.push(`Dew is expected, making the toss absolutely crucial for whoever fields second. `);
+            } else {
+                if (pitch === 'batting' && toss.includes('bat')) bits.push(`Batting first on this flat track is a statistically sound strategy. `);
+            }
+            if (venue !== 'neutral') bits.push(`Historical win rates heavily favor the home turf advantage at ${vN || 'this venue'}. `);
+            
             document.getElementById('insight').innerHTML = bits.join('');
 
             // Share button
@@ -5604,21 +5643,23 @@
             setNotifBtn('off');
         }
 
+        function urlB64ToUint8Array(base64String) {
+            const padding = '='.repeat((4 - base64String.length % 4) % 4);
+            const base64 = (base64String + padding).replace(/\-/g, '+').replace(/_/g, '/');
+            const rawData = window.atob(base64);
+            const outputArray = new Uint8Array(rawData.length);
+            for(let i=0; i < rawData.length; ++i) { outputArray[i] = rawData.charCodeAt(i); }
+            return outputArray;
+        }
+
         async function requestNotif() {
             const btn = document.getElementById('notifBtn');
-            if (!('Notification' in window)) {
+            if (!('Notification' in window) || !('serviceWorker' in navigator)) {
                 alert('Push notifications are not supported in this browser.');
                 return;
             }
             if (Notification.permission === 'denied') {
                 setNotifBtn('blocked');
-                return;
-            }
-            if (Notification.permission === 'granted') {
-                notifEnabled = true;
-                localStorage.setItem('sixthstump-notif', 'on');
-                scheduleNotifications();
-                setNotifBtn('on');
                 return;
             }
             const perm = await Notification.requestPermission();
@@ -5627,10 +5668,16 @@
                 localStorage.setItem('sixthstump-notif', 'on');
                 scheduleNotifications();
                 setNotifBtn('on');
-                new Notification('SixthStump', {
-                    body: "You'll be notified 30 mins before each IPL match!",
-                    icon: 'https://documents.iplt20.com/ipl/assets/images/ipl-logo-new-old.png'
-                });
+                try {
+                    const reg = await navigator.serviceWorker.ready;
+                    const sub = await reg.pushManager.subscribe({
+                        userVisibleOnly: true,
+                        applicationServerKey: urlB64ToUint8Array('BEl62iUYgUivxIkv69yViEuiBIa-Ib9-SkvMeAtA3LFgDykrxZJjSgSnfckjBJuBkr3qBUYIHBQFLcg-IFo_tN0')
+                    });
+                    console.log('Successfully Subscribed to Native Push:', sub);
+                } catch(e) {
+                    console.warn('Native push subscription failed, relying on local fallback.', e);
+                }
             } else {
                 setNotifBtn('blocked');
             }
@@ -6177,8 +6224,55 @@
         }
 
 
+        async function shareResult() {
+            const rp = document.getElementById('rp');
+            const shareBtn = document.getElementById('shareBtn');
+            if (!rp || !window.html2canvas) return;
+            
+            shareBtn.style.display = 'none';
+            await new Promise(r => setTimeout(r, 50));
+            
+            try {
+                const canvas = await html2canvas(rp, {
+                    backgroundColor: document.body.classList.contains('dark') ? '#0B1120' : '#F8FAFC',
+                    scale: 2,
+                    useCORS: true
+                });
+                
+                shareBtn.style.display = '';
+                
+                canvas.toBlob(async (blob) => {
+                    const file = new File([blob], 'sixthstump-prediction.png', { type: 'image/png' });
+                    
+                    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                        try {
+                            await navigator.share({
+                                title: 'My IPL 2026 Prediction',
+                                text: 'Check out my prediction on SixthStump!',
+                                files: [file]
+                            });
+                        } catch (err) {
+                            console.error('Share error', err);
+                        }
+                    } else {
+                        const url = URL.createObjectURL(blob);
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = 'sixthstump-prediction.png';
+                        document.body.appendChild(a);
+                        a.click();
+                        document.body.removeChild(a);
+                        URL.revokeObjectURL(url);
+                    }
+                }, 'image/png');
+            } catch (e) {
+                shareBtn.style.display = '';
+                console.error("Capture error:", e);
+            }
+        }
 
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </body>
 
 </html>
