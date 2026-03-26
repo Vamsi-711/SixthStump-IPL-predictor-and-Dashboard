@@ -97,6 +97,10 @@
             padding: 0 20px
         }
 
+        .rank-gold { display:inline-block; width:22px; height:22px; line-height:22px; text-align:center; border-radius:50%; background:linear-gradient(135deg, #FFD700, #FDB931); color:#000; font-weight:700; font-size:11px; box-shadow:0 2px 5px rgba(255,215,0,0.4); margin-right:4px;}
+        .rank-silver { display:inline-block; width:22px; height:22px; line-height:22px; text-align:center; border-radius:50%; background:linear-gradient(135deg, #E0E0E0, #9E9E9E); color:#000; font-weight:700; font-size:11px; box-shadow:0 2px 5px rgba(224,224,224,0.4); margin-right:4px;}
+        .rank-bronze { display:inline-block; width:22px; height:22px; line-height:22px; text-align:center; border-radius:50%; background:linear-gradient(135deg, #FFBCA5, #D97D54); color:#000; font-weight:700; font-size:11px; box-shadow:0 2px 5px rgba(217,125,84,0.4); margin-right:4px;}
+
         .serif {
             font-family: var(--serif)
         }
@@ -5176,8 +5180,8 @@
             refreshVenue(); refreshToss();
             updateCountdown();
             setInterval(updateCountdown, 1000);
-            initNotifBtn(); initNotifBtnInit();
-            initSoundBtn(); initSoundBtnInit();
+            initNotifBtnInit();
+            initSoundBtnInit();
             initTheme();
             // Dismiss preloader
             setTimeout(() => {
@@ -5926,8 +5930,17 @@
             const lb = document.getElementById('recLeaderboard');
             if (!lb) return;
 
+            // Sort rows based on primary value
+            let sortedRows = [...cat.rows];
+            sortedRows.sort((a, b) => {
+                let vA = parseFloat(a.val) || 0;
+                let vB = parseFloat(b.val) || 0;
+                if (key === 'economy') return vA - vB;
+                return vB - vA;
+            });
+
             // Find max for bar
-            const vals = cat.rows.map(r => parseFloat(r.val) || 0);
+            const vals = sortedRows.map(r => parseFloat(r.val) || 0);
             const maxV = Math.max(...vals);
             const isBig = maxV > 100;
 
@@ -5937,14 +5950,16 @@
  <span class="rec-lb-title">${cat.title}</span>
  <span class="rec-lb-sub">IPL 2008–2025 · All-Time</span>
  </div>
- ${cat.rows.map((r, i) => {
+ ${sortedRows.map((r, i) => {
                 const tData = T[r.team];
                 const color = tData ? tData.color : 'var(--red)';
                 const logo = tData ? tData.logo : '';
                 const numVal = parseFloat(r.val) || 0;
                 const barPct = maxV > 0 ? (numVal / maxV * 100) : 0;
-                const medal = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : '';
-                const rankStr = medal || `<span style="font-family:'IBM Plex Mono',monospace;font-size:12px;opacity:.4">#${i + 1}</span>`;
+                
+                const rankCls = i === 0 ? 'rank-gold' : i === 1 ? 'rank-silver' : i === 2 ? 'rank-bronze' : '';
+                const ds = i === 0 ? '1' : i === 1 ? '2' : i === 2 ? '3' : '';
+                const rankStr = rankCls ? `<span class="${rankCls}">${ds}</span>` : `<span style="font-family:'IBM Plex Mono',monospace;font-size:12px;opacity:.4">#${i + 1}</span>`;
 
                 // Sub details
                 let detail = '';
