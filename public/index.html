@@ -81,7 +81,7 @@
 
         body {
             font-family: var(--body);
-            background: var(--cream);
+            background: transparent;
             color: var(--text);
             min-height: 100vh;
             font-size: 16px;
@@ -3749,6 +3749,7 @@
 </head>
 
 <body>
+    <div id="vanta-bg" style="position:fixed; z-index:-1; top:0; left:0; width:100vw; height:100vh;"></div>
 
     <!-- PRELOADER -->
     <div id="preloader">
@@ -5766,10 +5767,38 @@
 
         // Dark mode also flips theme-color meta
         const _origToggle = toggleTheme;
+        
+        let vantaEffect = null;
+        function initVanta(isDark) {
+            if (!window.VANTA || !window.VANTA.NET) return;
+            if (vantaEffect) vantaEffect.destroy();
+            vantaEffect = window.VANTA.NET({
+                el: "#vanta-bg",
+                mouseControls: true,
+                touchControls: true,
+                gyroControls: false,
+                minHeight: 200.00,
+                minWidth: 200.00,
+                scale: 1.00,
+                scaleMobile: 1.00,
+                color: isDark ? 0x10B981 : 0x3B82F6,
+                backgroundColor: isDark ? 0x0B1120 : 0xF8FAFC,
+                points: 12.00,
+                maxDistance: 22.00,
+                spacing: 16.00
+            });
+        }
+        
+        window.addEventListener('load', () => {
+             initVanta(document.body.classList.contains('dark'));
+        });
+
         toggleTheme = function () {
             _origToggle();
+            const isDark = document.body.classList.contains('dark');
             const meta = document.getElementById('themeColorMeta');
-            if (meta) meta.content = document.body.classList.contains('dark') ? '#111008' : '#f5f0e4';
+            if (meta) meta.content = isDark ? '#111008' : '#f5f0e4';
+            initVanta(isDark);
         };
 
         // Register service worker
@@ -6273,6 +6302,8 @@
 
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
 </body>
 
 </html>
