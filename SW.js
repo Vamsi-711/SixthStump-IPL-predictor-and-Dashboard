@@ -1,4 +1,4 @@
-const CACHE = 'sixthstump-v1';
+const CACHE = 'sixthstump-v3';
 const OFFLINE_ASSETS = [
   '/',
   '/index.html',
